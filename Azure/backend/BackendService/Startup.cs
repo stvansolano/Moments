@@ -8,7 +8,7 @@ using Microsoft.AspNet.Http;
 using Microsoft.AspNet.Routing;
 using Microsoft.Framework.DependencyInjection;
 
-namespace Moments.Services
+namespace BackendService
 {
     public class Startup
     {
