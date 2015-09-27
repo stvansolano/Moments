@@ -1,16 +1,19 @@
-﻿namespace BackendService.Controllers
+﻿// For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+
+namespace BackendService.Controllers
 {
     using System.Collections.Generic;
     using Microsoft.AspNet.Mvc;
+    using Moments;
 
     [Route("/[controller]")]
-    public class ValuesController : Controller
+    public class FriendsController : Controller
     {
         // GET: api/values
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<User> Get(bool getFriends, string userId)
         {
-            return new string[] { "value1", "value2" };
+            return new User[] { new User { Id = "1234", Name = "Esteban Solano G." } };
         }
 
         // GET api/values/5
