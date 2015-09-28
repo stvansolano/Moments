@@ -26,7 +26,12 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "service", "..\service\", "{
 		SlnRelativePath = "..\service\"
 	EndProjectSection
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Moments", "..\..\Moments - XAML\Moments.Shared\Moments.shproj", "{64635747-6374-4466-884F-7AE0241F596B}"
+EndProject
 Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		..\..\Moments - XAML\Moments.Shared\Moments.projitems*{64635747-6374-4466-884f-7ae0241f596b}*SharedItemsImports = 13
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU

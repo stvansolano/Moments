@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNet.Builder;
-using Microsoft.AspNet.Hosting;
-using Microsoft.AspNet.Http;
-using Microsoft.AspNet.Routing;
-using Microsoft.Framework.DependencyInjection;
-
-namespace BackendService
+﻿namespace BackendService
 {
-    public class Startup
+    using Microsoft.AspNet.Builder;
+    using Microsoft.AspNet.Hosting;
+    using Microsoft.Framework.DependencyInjection;
+
+    public partial class Startup
     {
         public Startup(IHostingEnvironment env)
         {
@@ -36,6 +30,8 @@ namespace BackendService
             app.UseMvc();
             // Add the following route for porting Web API 2 controllers.
             // routes.MapWebApiRoute("DefaultApi", "api/{controller}/{id?}");
+
+            //ConfigureAuth(app);
         }
     }
 }
