@@ -1,4 +1,4 @@
-﻿namespace BackendService.Controllers
+﻿namespace Backend.Controllers
 {
     using System.Collections.Generic;
     using Microsoft.AspNet.Mvc;

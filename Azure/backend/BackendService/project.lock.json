@@ -3,20 +3,6 @@
   "version": -9996,
   "targets": {
     "DNX,Version=v4.5.1": {
-      "Ensure.That/1.0.0": {},
-      "EntityFramework/6.1.0": {
-        "frameworkAssemblies": [
-          "System.ComponentModel.DataAnnotations"
-        ],
-        "compile": {
-          "lib/net45/EntityFramework.dll": {},
-          "lib/net45/EntityFramework.SqlServer.dll": {}
-        },
-        "runtime": {
-          "lib/net45/EntityFramework.dll": {},
-          "lib/net45/EntityFramework.SqlServer.dll": {}
-        }
-      },
       "Microsoft.AspNet.Authentication/1.0.0-beta5": {
         "dependencies": {
           "Microsoft.AspNet.DataProtection": "1.0.0-beta5",
@@ -37,6 +23,25 @@
         },
         "runtime": {
           "lib/dnx451/Microsoft.AspNet.Authentication.dll": {}
+        }
+      },
+      "Microsoft.AspNet.Authentication.Cookies/1.0.0-beta5": {
+        "dependencies": {
+          "Microsoft.AspNet.Authentication": "1.0.0-beta5",
+          "Microsoft.Framework.WebEncoders": "1.0.0-beta5",
+          "Newtonsoft.Json": "6.0.6"
+        },
+        "frameworkAssemblies": [
+          "mscorlib",
+          "System",
+          "System.Core",
+          "Microsoft.CSharp"
+        ],
+        "compile": {
+          "lib/dnx451/Microsoft.AspNet.Authentication.Cookies.dll": {}
+        },
+        "runtime": {
+          "lib/dnx451/Microsoft.AspNet.Authentication.Cookies.dll": {}
         }
       },
       "Microsoft.AspNet.Authentication.Twitter/1.0.0-beta5": {
@@ -77,23 +82,12 @@
           "lib/dnx451/Microsoft.AspNet.Authorization.dll": {}
         }
       },
-      "Microsoft.AspNet.Cors/1.0.0-beta5": {
-        "dependencies": {
-          "Microsoft.AspNet.Cors.Core": "1.0.0-beta5",
-          "Microsoft.AspNet.Http.Extensions": "1.0.0-beta5",
-          "Microsoft.AspNet.WebUtilities": "1.0.0-beta5"
-        },
-        "frameworkAssemblies": [
-          "mscorlib",
-          "System",
-          "System.Core",
-          "Microsoft.CSharp"
-        ],
+      "Microsoft.AspNet.Cors/5.0.0": {
         "compile": {
-          "lib/dnx451/Microsoft.AspNet.Cors.dll": {}
+          "lib/net45/System.Web.Cors.dll": {}
         },
         "runtime": {
-          "lib/dnx451/Microsoft.AspNet.Cors.dll": {}
+          "lib/net45/System.Web.Cors.dll": {}
         }
       },
       "Microsoft.AspNet.Cors.Core/1.0.0-beta5": {
@@ -369,26 +363,6 @@
         },
         "runtime": {
           "lib/dnx451/Microsoft.AspNet.Http.Features.dll": {}
-        }
-      },
-      "Microsoft.AspNet.Identity.Core/2.2.1": {
-        "compile": {
-          "lib/net45/Microsoft.AspNet.Identity.Core.dll": {}
-        },
-        "runtime": {
-          "lib/net45/Microsoft.AspNet.Identity.Core.dll": {}
-        }
-      },
-      "Microsoft.AspNet.Identity.EntityFramework/2.2.1": {
-        "dependencies": {
-          "Microsoft.AspNet.Identity.Core": "2.2.1",
-          "EntityFramework": "6.1.0"
-        },
-        "compile": {
-          "lib/net45/Microsoft.AspNet.Identity.EntityFramework.dll": {}
-        },
-        "runtime": {
-          "lib/net45/Microsoft.AspNet.Identity.EntityFramework.dll": {}
         }
       },
       "Microsoft.AspNet.JsonPatch/1.0.0-beta5": {
@@ -703,17 +677,26 @@
           "lib/net45/System.Web.Http.dll": {}
         }
       },
-      "Microsoft.AspNet.WebApi.Owin/5.2.3": {
+      "Microsoft.AspNet.WebApi.HelpPage/5.2.3": {
         "dependencies": {
-          "Microsoft.AspNet.WebApi.Core": "[5.2.3, 5.3.0)",
-          "Microsoft.Owin": "2.0.2",
-          "Owin": "1.0"
+          "Microsoft.AspNet.WebApi.WebHost": "[5.2.3, 5.3.0)",
+          "Microsoft.AspNet.Mvc": "[5.2.3, 5.3.0)",
+          "Microsoft.AspNet.Razor": "[3.2.3, 3.3.0)"
+        },
+        "frameworkAssemblies": [
+          "System.ComponentModel.DataAnnotations",
+          "System.Runtime.Serialization"
+        ]
+      },
+      "Microsoft.AspNet.WebApi.WebHost/5.2.3": {
+        "dependencies": {
+          "Microsoft.AspNet.WebApi.Core": "[5.2.3, 5.3.0)"
         },
         "compile": {
-          "lib/net45/System.Web.Http.Owin.dll": {}
+          "lib/net45/System.Web.Http.WebHost.dll": {}
         },
         "runtime": {
-          "lib/net45/System.Web.Http.Owin.dll": {}
+          "lib/net45/System.Web.Http.WebHost.dll": {}
         }
       },
       "Microsoft.AspNet.WebUtilities/1.0.0-beta5": {
@@ -1118,92 +1101,20 @@
           "lib/net45/Microsoft.Owin.dll": {}
         }
       },
-      "Microsoft.Owin.Security/3.0.1": {
-        "dependencies": {
-          "Owin": "1.0",
-          "Microsoft.Owin": "3.0.1"
-        },
-        "compile": {
-          "lib/net45/Microsoft.Owin.Security.dll": {}
-        },
-        "runtime": {
-          "lib/net45/Microsoft.Owin.Security.dll": {}
-        }
-      },
-      "Microsoft.Owin.Security.Cookies/3.0.1": {
+      "Microsoft.Owin.Cors/3.0.1": {
         "dependencies": {
           "Owin": "1.0",
           "Microsoft.Owin": "3.0.1",
-          "Microsoft.Owin.Security": "3.0.1"
+          "Microsoft.AspNet.Cors": "5.0.0"
         },
         "compile": {
-          "lib/net45/Microsoft.Owin.Security.Cookies.dll": {}
+          "lib/net45/Microsoft.Owin.Cors.dll": {}
         },
         "runtime": {
-          "lib/net45/Microsoft.Owin.Security.Cookies.dll": {}
+          "lib/net45/Microsoft.Owin.Cors.dll": {}
         }
       },
-      "Microsoft.Owin.Security.OAuth/3.0.1": {
-        "dependencies": {
-          "Owin": "1.0",
-          "Microsoft.Owin": "3.0.1",
-          "Newtonsoft.Json": "6.0.4",
-          "Microsoft.Owin.Security": "3.0.1"
-        },
-        "compile": {
-          "lib/net45/Microsoft.Owin.Security.OAuth.dll": {}
-        },
-        "runtime": {
-          "lib/net45/Microsoft.Owin.Security.OAuth.dll": {}
-        }
-      },
-      "Microsoft.Owin.Security.Twitter/3.0.1": {
-        "dependencies": {
-          "Owin": "1.0",
-          "Microsoft.Owin": "3.0.1",
-          "Newtonsoft.Json": "6.0.4",
-          "Microsoft.Owin.Security": "3.0.1"
-        },
-        "frameworkAssemblies": [
-          "System.Net.Http",
-          "System.Net.Http.WebRequest"
-        ],
-        "compile": {
-          "lib/net45/Microsoft.Owin.Security.Twitter.dll": {}
-        },
-        "runtime": {
-          "lib/net45/Microsoft.Owin.Security.Twitter.dll": {}
-        }
-      },
-      "MyCouch/2.0.0": {
-        "dependencies": {
-          "Ensure.That": "1.0.0",
-          "Newtonsoft.Json": "6.0.3",
-          "Rx-Main": "2.2.4"
-        },
-        "frameworkAssemblies": [
-          "System.Net.Http"
-        ],
-        "compile": {
-          "lib/net45/MyCouch.Net45.dll": {}
-        },
-        "runtime": {
-          "lib/net45/MyCouch.Net45.dll": {}
-        }
-      },
-      "MyCouch.AspNet.Identity/0.3.0": {
-        "dependencies": {
-          "Microsoft.AspNet.Identity.Core": "2.0.1",
-          "MyCouch": "2.0.0"
-        },
-        "compile": {
-          "lib/net45/MyCouch.AspNet.Identity.Net45.dll": {}
-        },
-        "runtime": {
-          "lib/net45/MyCouch.AspNet.Identity.Net45.dll": {}
-        }
-      },
-      "Newtonsoft.Json/6.0.6": {
+      "Newtonsoft.Json/7.0.1": {
         "compile": {
           "lib/net45/Newtonsoft.Json.dll": {}
         },
@@ -1217,57 +1128,6 @@
         },
         "runtime": {
           "lib/net40/Owin.dll": {}
-        }
-      },
-      "Rx-Core/2.2.4": {
-        "dependencies": {
-          "Rx-Interfaces": "2.2.4"
-        },
-        "compile": {
-          "lib/net45/System.Reactive.Core.dll": {}
-        },
-        "runtime": {
-          "lib/net45/System.Reactive.Core.dll": {}
-        }
-      },
-      "Rx-Interfaces/2.2.4": {
-        "compile": {
-          "lib/net45/System.Reactive.Interfaces.dll": {}
-        },
-        "runtime": {
-          "lib/net45/System.Reactive.Interfaces.dll": {}
-        }
-      },
-      "Rx-Linq/2.2.4": {
-        "dependencies": {
-          "Rx-Interfaces": "2.2.4",
-          "Rx-Core": "2.2.4"
-        },
-        "compile": {
-          "lib/net45/System.Reactive.Linq.dll": {}
-        },
-        "runtime": {
-          "lib/net45/System.Reactive.Linq.dll": {}
-        }
-      },
-      "Rx-Main/2.2.4": {
-        "dependencies": {
-          "Rx-Interfaces": "2.2.4",
-          "Rx-Core": "2.2.4",
-          "Rx-Linq": "2.2.4",
-          "Rx-PlatformServices": "2.2.4"
-        }
-      },
-      "Rx-PlatformServices/2.2.4": {
-        "dependencies": {
-          "Rx-Interfaces": "2.2.4",
-          "Rx-Core": "2.2.4"
-        },
-        "compile": {
-          "lib/net45/System.Reactive.PlatformServices.dll": {}
-        },
-        "runtime": {
-          "lib/net45/System.Reactive.PlatformServices.dll": {}
         }
       },
       "System.Collections.Immutable/1.1.36": {
@@ -1291,7 +1151,6 @@
       }
     },
     "DNXCore,Version=v5.0": {
-      "EntityFramework/6.1.0": {},
       "Microsoft.AspNet.Authentication/1.0.0-beta5": {
         "dependencies": {
           "Microsoft.AspNet.DataProtection": "1.0.0-beta5",
@@ -1307,6 +1166,19 @@
         },
         "runtime": {
           "lib/dnxcore50/Microsoft.AspNet.Authentication.dll": {}
+        }
+      },
+      "Microsoft.AspNet.Authentication.Cookies/1.0.0-beta5": {
+        "dependencies": {
+          "Microsoft.AspNet.Authentication": "1.0.0-beta5",
+          "Microsoft.Framework.WebEncoders": "1.0.0-beta5",
+          "Newtonsoft.Json": "6.0.6"
+        },
+        "compile": {
+          "lib/dnxcore50/Microsoft.AspNet.Authentication.Cookies.dll": {}
+        },
+        "runtime": {
+          "lib/dnxcore50/Microsoft.AspNet.Authentication.Cookies.dll": {}
         }
       },
       "Microsoft.AspNet.Authentication.Twitter/1.0.0-beta5": {
@@ -1335,20 +1207,7 @@
           "lib/dnxcore50/Microsoft.AspNet.Authorization.dll": {}
         }
       },
-      "Microsoft.AspNet.Cors/1.0.0-beta5": {
-        "dependencies": {
-          "Microsoft.AspNet.Cors.Core": "1.0.0-beta5",
-          "Microsoft.AspNet.Http.Extensions": "1.0.0-beta5",
-          "Microsoft.AspNet.WebUtilities": "1.0.0-beta5",
-          "System.Runtime": "4.0.20-beta-23019"
-        },
-        "compile": {
-          "lib/dnxcore50/Microsoft.AspNet.Cors.dll": {}
-        },
-        "runtime": {
-          "lib/dnxcore50/Microsoft.AspNet.Cors.dll": {}
-        }
-      },
+      "Microsoft.AspNet.Cors/5.0.0": {},
       "Microsoft.AspNet.Cors.Core/1.0.0-beta5": {
         "dependencies": {
           "Microsoft.Framework.Configuration.Abstractions": "1.0.0-beta5",
@@ -1611,13 +1470,6 @@
         },
         "runtime": {
           "lib/dnxcore50/Microsoft.AspNet.Http.Features.dll": {}
-        }
-      },
-      "Microsoft.AspNet.Identity.Core/2.2.1": {},
-      "Microsoft.AspNet.Identity.EntityFramework/2.2.1": {
-        "dependencies": {
-          "Microsoft.AspNet.Identity.Core": "2.2.1",
-          "EntityFramework": "6.1.0"
         }
       },
       "Microsoft.AspNet.JsonPatch/1.0.0-beta5": {
@@ -1884,11 +1736,16 @@
           "Microsoft.AspNet.WebApi.Client": "5.2.3"
         }
       },
-      "Microsoft.AspNet.WebApi.Owin/5.2.3": {
+      "Microsoft.AspNet.WebApi.HelpPage/5.2.3": {
         "dependencies": {
-          "Microsoft.AspNet.WebApi.Core": "[5.2.3, 5.3.0)",
-          "Microsoft.Owin": "2.0.2",
-          "Owin": "1.0"
+          "Microsoft.AspNet.WebApi.WebHost": "[5.2.3, 5.3.0)",
+          "Microsoft.AspNet.Mvc": "[5.2.3, 5.3.0)",
+          "Microsoft.AspNet.Razor": "[3.2.3, 3.3.0)"
+        }
+      },
+      "Microsoft.AspNet.WebApi.WebHost/5.2.3": {
+        "dependencies": {
+          "Microsoft.AspNet.WebApi.Core": "[5.2.3, 5.3.0)"
         }
       },
       "Microsoft.AspNet.WebUtilities/1.0.0-beta5": {
@@ -2310,33 +2167,11 @@
           "Owin": "1.0"
         }
       },
-      "Microsoft.Owin.Security/3.0.1": {
-        "dependencies": {
-          "Owin": "1.0",
-          "Microsoft.Owin": "3.0.1"
-        }
-      },
-      "Microsoft.Owin.Security.Cookies/3.0.1": {
+      "Microsoft.Owin.Cors/3.0.1": {
         "dependencies": {
           "Owin": "1.0",
           "Microsoft.Owin": "3.0.1",
-          "Microsoft.Owin.Security": "3.0.1"
-        }
-      },
-      "Microsoft.Owin.Security.OAuth/3.0.1": {
-        "dependencies": {
-          "Owin": "1.0",
-          "Microsoft.Owin": "3.0.1",
-          "Newtonsoft.Json": "6.0.4",
-          "Microsoft.Owin.Security": "3.0.1"
-        }
-      },
-      "Microsoft.Owin.Security.Twitter/3.0.1": {
-        "dependencies": {
-          "Owin": "1.0",
-          "Microsoft.Owin": "3.0.1",
-          "Newtonsoft.Json": "6.0.4",
-          "Microsoft.Owin.Security": "3.0.1"
+          "Microsoft.AspNet.Cors": "5.0.0"
         }
       },
       "Microsoft.Win32.Primitives/4.0.0-beta-23019": {
@@ -2368,13 +2203,12 @@
           "lib/DNXCore50/Microsoft.Win32.Registry.dll": {}
         }
       },
-      "MyCouch.AspNet.Identity/0.3.0": {},
-      "Newtonsoft.Json/6.0.6": {
+      "Newtonsoft.Json/7.0.1": {
         "compile": {
-          "lib/portable-net45+wp80+win8+wpa81+aspnetcore50/Newtonsoft.Json.dll": {}
+          "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Newtonsoft.Json.dll": {}
         },
         "runtime": {
-          "lib/portable-net45+wp80+win8+wpa81+aspnetcore50/Newtonsoft.Json.dll": {}
+          "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Newtonsoft.Json.dll": {}
         }
       },
       "Owin/1.0": {},
@@ -3481,42 +3315,6 @@
     }
   },
   "libraries": {
-    "Ensure.That/1.0.0": {
-      "sha512": "3N9w0AhcnqLYML4jLZFSyRd6KLOo1HbnJ7Rdy4baSEpwMZLmjU5Lx6DzysxxINVf4Zh4GHHO60HPsfaJUxsEPw==",
-      "files": [
-        "Ensure.That.1.0.0.nupkg",
-        "Ensure.That.1.0.0.nupkg.sha512",
-        "Ensure.That.nuspec",
-        "lib/portable-win+net40+sl40+wp71/EnsureThat.dll/EnsureThat.dll"
-      ]
-    },
-    "EntityFramework/6.1.0": {
-      "serviceable": true,
-      "sha512": "u/M0OEfqxTUsL5BwzD66eBGm278/ozqdLK3JvMO6QwUxxc+z7ZUkTYm4suDhWRqzkc6mOhvXDQY5dZUwbldxyQ==",
-      "files": [
-        "EntityFramework.6.1.0.nupkg",
-        "EntityFramework.6.1.0.nupkg.sha512",
-        "EntityFramework.nuspec",
-        "content/App.config.transform",
-        "content/Web.config.transform",
-        "lib/net40/EntityFramework.dll",
-        "lib/net40/EntityFramework.SqlServer.dll",
-        "lib/net40/EntityFramework.SqlServer.xml",
-        "lib/net40/EntityFramework.xml",
-        "lib/net45/EntityFramework.dll",
-        "lib/net45/EntityFramework.SqlServer.dll",
-        "lib/net45/EntityFramework.SqlServer.xml",
-        "lib/net45/EntityFramework.xml",
-        "tools/about_EntityFramework.help.txt",
-        "tools/EntityFramework.PowerShell.dll",
-        "tools/EntityFramework.PowerShell.Utility.dll",
-        "tools/EntityFramework.psd1",
-        "tools/EntityFramework.psm1",
-        "tools/init.ps1",
-        "tools/install.ps1",
-        "tools/migrate.exe"
-      ]
-    },
     "Microsoft.AspNet.Authentication/1.0.0-beta5": {
       "serviceable": true,
       "sha512": "0aGfwSmbVHhNIQSp6dXqz6sLYD07U9Dgnw8rm/wnQDkLFfJ9iPQKBBTk/Oh/6wGwaSg9Ko7mzXTwILE42HZdZA==",
@@ -3528,6 +3326,19 @@
         "lib/dnx451/Microsoft.AspNet.Authentication.xml",
         "lib/dnxcore50/Microsoft.AspNet.Authentication.dll",
         "lib/dnxcore50/Microsoft.AspNet.Authentication.xml"
+      ]
+    },
+    "Microsoft.AspNet.Authentication.Cookies/1.0.0-beta5": {
+      "serviceable": true,
+      "sha512": "slpGZOh7Gp8YFE9cdlzce67LFUAspBAp6WfjzhH270Ck/D8lzY83DiDLe2IQOhgH+MxlYi+r4bb7PvOhmoSM7g==",
+      "files": [
+        "Microsoft.AspNet.Authentication.Cookies.1.0.0-beta5.nupkg",
+        "Microsoft.AspNet.Authentication.Cookies.1.0.0-beta5.nupkg.sha512",
+        "Microsoft.AspNet.Authentication.Cookies.nuspec",
+        "lib/dnx451/Microsoft.AspNet.Authentication.Cookies.dll",
+        "lib/dnx451/Microsoft.AspNet.Authentication.Cookies.xml",
+        "lib/dnxcore50/Microsoft.AspNet.Authentication.Cookies.dll",
+        "lib/dnxcore50/Microsoft.AspNet.Authentication.Cookies.xml"
       ]
     },
     "Microsoft.AspNet.Authentication.Twitter/1.0.0-beta5": {
@@ -3556,17 +3367,14 @@
         "lib/dnxcore50/Microsoft.AspNet.Authorization.xml"
       ]
     },
-    "Microsoft.AspNet.Cors/1.0.0-beta5": {
+    "Microsoft.AspNet.Cors/5.0.0": {
       "serviceable": true,
-      "sha512": "PhzXyRQakcHu9Sr2MA3S2v2wGoFYFD0ONEYEMwNi1UmWNBIf1nmXCbj/rVnW7neS/ZTJdLICpz3orxioJv5ayQ==",
+      "sha512": "jNwFhEnm0jRlaRCgHEk52hJQltVoM2Bllysv2NtPYrgsVWyS3r5BOtCXkM/lEZ5AdUUBOvha+4QAVcVp1MZp5g==",
       "files": [
-        "Microsoft.AspNet.Cors.1.0.0-beta5.nupkg",
-        "Microsoft.AspNet.Cors.1.0.0-beta5.nupkg.sha512",
+        "Microsoft.AspNet.Cors.5.0.0.nupkg",
+        "Microsoft.AspNet.Cors.5.0.0.nupkg.sha512",
         "Microsoft.AspNet.Cors.nuspec",
-        "lib/dnx451/Microsoft.AspNet.Cors.dll",
-        "lib/dnx451/Microsoft.AspNet.Cors.xml",
-        "lib/dnxcore50/Microsoft.AspNet.Cors.dll",
-        "lib/dnxcore50/Microsoft.AspNet.Cors.xml"
+        "lib/net45/System.Web.Cors.dll"
       ]
     },
     "Microsoft.AspNet.Cors.Core/1.0.0-beta5": {
@@ -3771,28 +3579,6 @@
         "lib/dnx451/Microsoft.AspNet.Http.Features.xml",
         "lib/dnxcore50/Microsoft.AspNet.Http.Features.dll",
         "lib/dnxcore50/Microsoft.AspNet.Http.Features.xml"
-      ]
-    },
-    "Microsoft.AspNet.Identity.Core/2.2.1": {
-      "serviceable": true,
-      "sha512": "jjurNglpmcv0SLBd4Fmar8ZoJ2yqfTf6iuP3p8wVH7Nvanfo8l3qTBzq3qRQz2BQlb6iXJiDWPjcnIImVz512g==",
-      "files": [
-        "Microsoft.AspNet.Identity.Core.2.2.1.nupkg",
-        "Microsoft.AspNet.Identity.Core.2.2.1.nupkg.sha512",
-        "Microsoft.AspNet.Identity.Core.nuspec",
-        "lib/net45/Microsoft.AspNet.Identity.Core.dll",
-        "lib/net45/Microsoft.AspNet.Identity.Core.xml"
-      ]
-    },
-    "Microsoft.AspNet.Identity.EntityFramework/2.2.1": {
-      "serviceable": true,
-      "sha512": "g3tCS3vZ+hPjqrGrkq2hpl2Wc5Ltaj+kInZM80uENHldTHmrvCpVXvTXcvTt7HU3vupjmYFfNWVFRWCypNZgug==",
-      "files": [
-        "Microsoft.AspNet.Identity.EntityFramework.2.2.1.nupkg",
-        "Microsoft.AspNet.Identity.EntityFramework.2.2.1.nupkg.sha512",
-        "Microsoft.AspNet.Identity.EntityFramework.nuspec",
-        "lib/net45/Microsoft.AspNet.Identity.EntityFramework.dll",
-        "lib/net45/Microsoft.AspNet.Identity.EntityFramework.xml"
       ]
     },
     "Microsoft.AspNet.JsonPatch/1.0.0-beta5": {
@@ -4027,15 +3813,72 @@
         "lib/net45/System.Web.Http.xml"
       ]
     },
-    "Microsoft.AspNet.WebApi.Owin/5.2.3": {
-      "serviceable": true,
-      "sha512": "eMftC99BNMgnp/PDbfT6OCDW94n1uVBC6bF9Z0HkkC5h1hR4LSsKoy9jvw7aXBi6PN6tuK6uje5UjWvXodbKGA==",
+    "Microsoft.AspNet.WebApi.HelpPage/5.2.3": {
+      "sha512": "A63XU+7Ot1ZwqUv6sC14aQIE1hXWMsqu5Vjt/7YUdjKR6MDa5glVJNrIx4XCxnkDPmrPowUHwzsXeN0BZUJtng==",
       "files": [
-        "Microsoft.AspNet.WebApi.Owin.5.2.3.nupkg",
-        "Microsoft.AspNet.WebApi.Owin.5.2.3.nupkg.sha512",
-        "Microsoft.AspNet.WebApi.Owin.nuspec",
-        "lib/net45/System.Web.Http.Owin.dll",
-        "lib/net45/System.Web.Http.Owin.xml"
+        "Microsoft.AspNet.WebApi.HelpPage.5.2.3.nupkg",
+        "Microsoft.AspNet.WebApi.HelpPage.5.2.3.nupkg.sha512",
+        "Microsoft.AspNet.WebApi.HelpPage.nuspec",
+        "Content/Areas/HelpPage/ApiDescriptionExtensions.cs.pp",
+        "Content/Areas/HelpPage/HelpPage.css.pp",
+        "Content/Areas/HelpPage/HelpPageAreaRegistration.cs.pp",
+        "Content/Areas/HelpPage/HelpPageConfigurationExtensions.cs.pp",
+        "Content/Areas/HelpPage/XmlDocumentationProvider.cs.pp",
+        "Content/Areas/HelpPage/App_Start/HelpPageConfig.cs.pp",
+        "Content/Areas/HelpPage/Controllers/HelpController.cs.pp",
+        "Content/Areas/HelpPage/ModelDescriptions/CollectionModelDescription.cs.pp",
+        "Content/Areas/HelpPage/ModelDescriptions/ComplexTypeModelDescription.cs.pp",
+        "Content/Areas/HelpPage/ModelDescriptions/DictionaryModelDescription.cs.pp",
+        "Content/Areas/HelpPage/ModelDescriptions/EnumTypeModelDescription.cs.pp",
+        "Content/Areas/HelpPage/ModelDescriptions/EnumValueDescription.cs.pp",
+        "Content/Areas/HelpPage/ModelDescriptions/IModelDocumentationProvider.cs.pp",
+        "Content/Areas/HelpPage/ModelDescriptions/KeyValuePairModelDescription.cs.pp",
+        "Content/Areas/HelpPage/ModelDescriptions/ModelDescription.cs.pp",
+        "Content/Areas/HelpPage/ModelDescriptions/ModelDescriptionGenerator.cs.pp",
+        "Content/Areas/HelpPage/ModelDescriptions/ModelNameAttribute.cs.pp",
+        "Content/Areas/HelpPage/ModelDescriptions/ModelNameHelper.cs.pp",
+        "Content/Areas/HelpPage/ModelDescriptions/ParameterAnnotation.cs.pp",
+        "Content/Areas/HelpPage/ModelDescriptions/ParameterDescription.cs.pp",
+        "Content/Areas/HelpPage/ModelDescriptions/SimpleTypeModelDescription.cs.pp",
+        "Content/Areas/HelpPage/Models/HelpPageApiModel.cs.pp",
+        "Content/Areas/HelpPage/SampleGeneration/HelpPageSampleGenerator.cs.pp",
+        "Content/Areas/HelpPage/SampleGeneration/HelpPageSampleKey.cs.pp",
+        "Content/Areas/HelpPage/SampleGeneration/ImageSample.cs.pp",
+        "Content/Areas/HelpPage/SampleGeneration/InvalidSample.cs.pp",
+        "Content/Areas/HelpPage/SampleGeneration/ObjectGenerator.cs.pp",
+        "Content/Areas/HelpPage/SampleGeneration/SampleDirection.cs.pp",
+        "Content/Areas/HelpPage/SampleGeneration/TextSample.cs.pp",
+        "Content/Areas/HelpPage/Views/Web.config",
+        "Content/Areas/HelpPage/Views/_ViewStart.cshtml.pp",
+        "Content/Areas/HelpPage/Views/Help/Api.cshtml.pp",
+        "Content/Areas/HelpPage/Views/Help/Index.cshtml.pp",
+        "Content/Areas/HelpPage/Views/Help/ResourceModel.cshtml.pp",
+        "Content/Areas/HelpPage/Views/Help/DisplayTemplates/ApiGroup.cshtml.pp",
+        "Content/Areas/HelpPage/Views/Help/DisplayTemplates/CollectionModelDescription.cshtml.pp",
+        "Content/Areas/HelpPage/Views/Help/DisplayTemplates/ComplexTypeModelDescription.cshtml.pp",
+        "Content/Areas/HelpPage/Views/Help/DisplayTemplates/DictionaryModelDescription.cshtml.pp",
+        "Content/Areas/HelpPage/Views/Help/DisplayTemplates/EnumTypeModelDescription.cshtml.pp",
+        "Content/Areas/HelpPage/Views/Help/DisplayTemplates/HelpPageApiModel.cshtml.pp",
+        "Content/Areas/HelpPage/Views/Help/DisplayTemplates/ImageSample.cshtml.pp",
+        "Content/Areas/HelpPage/Views/Help/DisplayTemplates/InvalidSample.cshtml.pp",
+        "Content/Areas/HelpPage/Views/Help/DisplayTemplates/KeyValuePairModelDescription.cshtml.pp",
+        "Content/Areas/HelpPage/Views/Help/DisplayTemplates/ModelDescriptionLink.cshtml.pp",
+        "Content/Areas/HelpPage/Views/Help/DisplayTemplates/Parameters.cshtml.pp",
+        "Content/Areas/HelpPage/Views/Help/DisplayTemplates/Samples.cshtml.pp",
+        "Content/Areas/HelpPage/Views/Help/DisplayTemplates/SimpleTypeModelDescription.cshtml.pp",
+        "Content/Areas/HelpPage/Views/Help/DisplayTemplates/TextSample.cshtml.pp",
+        "Content/Areas/HelpPage/Views/Shared/_Layout.cshtml.pp"
+      ]
+    },
+    "Microsoft.AspNet.WebApi.WebHost/5.2.3": {
+      "serviceable": true,
+      "sha512": "bhm4/BKdS3t6nK2R3NjCpxulcwtMFiHqVBDLuN3W5So1PhZfE+RBs7eVazGOhsEKCk7PoSmiSnl9DG0cpyfHtA==",
+      "files": [
+        "Microsoft.AspNet.WebApi.WebHost.5.2.3.nupkg",
+        "Microsoft.AspNet.WebApi.WebHost.5.2.3.nupkg.sha512",
+        "Microsoft.AspNet.WebApi.WebHost.nuspec",
+        "lib/net45/System.Web.Http.WebHost.dll",
+        "lib/net45/System.Web.Http.WebHost.xml"
       ]
     },
     "Microsoft.AspNet.WebUtilities/1.0.0-beta5": {
@@ -4608,48 +4451,15 @@
         "lib/net45/Microsoft.Owin.XML"
       ]
     },
-    "Microsoft.Owin.Security/3.0.1": {
+    "Microsoft.Owin.Cors/3.0.1": {
       "serviceable": true,
-      "sha512": "LPoUxaTKzmjs97wDCTtBIoRwp30Jkq9UFnoj+EfMFJv+XxjcvHE/D573LRomA568WhvXoI2cUiwhZFvqfbLMVg==",
+      "sha512": "b3dMOu1/nqjslrEOWnbxIBk4OgeDUXNUtiGmymvzU1nBb8CyWmtMfPIxqu1f7jJEz87R4FUGS8UvvZatwbPP6w==",
       "files": [
-        "Microsoft.Owin.Security.3.0.1.nupkg",
-        "Microsoft.Owin.Security.3.0.1.nupkg.sha512",
-        "Microsoft.Owin.Security.nuspec",
-        "lib/net45/Microsoft.Owin.Security.dll",
-        "lib/net45/Microsoft.Owin.Security.XML"
-      ]
-    },
-    "Microsoft.Owin.Security.Cookies/3.0.1": {
-      "serviceable": true,
-      "sha512": "l2GRNvO4oyxfpmWtfUYvN3fA4jWduE84UCNqWTj6yhYDSE76wI+W022qTTEMr0VoCDiJ0GGYdvAjQm3xbSsB9Q==",
-      "files": [
-        "Microsoft.Owin.Security.Cookies.3.0.1.nupkg",
-        "Microsoft.Owin.Security.Cookies.3.0.1.nupkg.sha512",
-        "Microsoft.Owin.Security.Cookies.nuspec",
-        "lib/net45/Microsoft.Owin.Security.Cookies.dll",
-        "lib/net45/Microsoft.Owin.Security.Cookies.xml"
-      ]
-    },
-    "Microsoft.Owin.Security.OAuth/3.0.1": {
-      "serviceable": true,
-      "sha512": "wttlhNSijhsrF7iwxYzxhTr8AYxXI6qoiw3b6dhVhqXOYCDp8OQ5yhHFtWlst+65l7VHduXassspZ974rtLMaw==",
-      "files": [
-        "Microsoft.Owin.Security.OAuth.3.0.1.nupkg",
-        "Microsoft.Owin.Security.OAuth.3.0.1.nupkg.sha512",
-        "Microsoft.Owin.Security.OAuth.nuspec",
-        "lib/net45/Microsoft.Owin.Security.OAuth.dll",
-        "lib/net45/Microsoft.Owin.Security.OAuth.XML"
-      ]
-    },
-    "Microsoft.Owin.Security.Twitter/3.0.1": {
-      "serviceable": true,
-      "sha512": "WsEOmobZc+Rmuihs4umJgnfCE8zHwmpcNwVqkd7dMdXHI9guLCqtrTF+LjiR9kqK9swnPOOQtbzcRKhn8ZmpOw==",
-      "files": [
-        "Microsoft.Owin.Security.Twitter.3.0.1.nupkg",
-        "Microsoft.Owin.Security.Twitter.3.0.1.nupkg.sha512",
-        "Microsoft.Owin.Security.Twitter.nuspec",
-        "lib/net45/Microsoft.Owin.Security.Twitter.dll",
-        "lib/net45/Microsoft.Owin.Security.Twitter.XML"
+        "Microsoft.Owin.Cors.3.0.1.nupkg",
+        "Microsoft.Owin.Cors.3.0.1.nupkg.sha512",
+        "Microsoft.Owin.Cors.nuspec",
+        "lib/net45/Microsoft.Owin.Cors.dll",
+        "lib/net45/Microsoft.Owin.Cors.XML"
       ]
     },
     "Microsoft.Win32.Primitives/4.0.0-beta-23019": {
@@ -4676,34 +4486,11 @@
         "ref/net46/Microsoft.Win32.Registry.dll"
       ]
     },
-    "MyCouch/2.0.0": {
-      "sha512": "UwzLO2dLzpDVTA2kgRZqPS/MXHi+VEghfHT5+FldpU0UjaTbxdKdiVj4PvoTjIJ8z2Q3siraMmvPdoJYxelj5Q==",
+    "Newtonsoft.Json/7.0.1": {
+      "sha512": "q3V4KLetMLnt1gpAVWgtXnHjKs0UG/RalBc29u2ZKxd5t5Ze4JBL5WiiYIklJyK/5CRiIiNwigVQUo0FgbsuWA==",
       "files": [
-        "MyCouch.2.0.0.nupkg",
-        "MyCouch.2.0.0.nupkg.sha512",
-        "MyCouch.nuspec",
-        "lib/net40/MyCouch.Net40.dll",
-        "lib/net40/MyCouch.Net40.XML",
-        "lib/net45/MyCouch.Net45.dll",
-        "lib/net45/MyCouch.Net45.XML",
-        "lib/portable-netcore45+netcore451/MyCouch.Pcl.dll",
-        "lib/portable-netcore45+netcore451/MyCouch.Pcl.XML"
-      ]
-    },
-    "MyCouch.AspNet.Identity/0.3.0": {
-      "sha512": "jqFLx8b1WNKHsvtP2cQBaRZLYQEq+eewmzYbdYK85k0K0on0FucjcgnRL1mcE3EfMDDfWsNCYEyvnfrtcPj24Q==",
-      "files": [
-        "MyCouch.AspNet.Identity.0.3.0.nupkg",
-        "MyCouch.AspNet.Identity.0.3.0.nupkg.sha512",
-        "MyCouch.AspNet.Identity.nuspec",
-        "lib/net45/MyCouch.AspNet.Identity.Net45.dll"
-      ]
-    },
-    "Newtonsoft.Json/6.0.6": {
-      "sha512": "w26uZNyCG5VeoKiEOJ4+9/o8koSofLKwHl7WLreIcp0U6r57L7WiRXmjp8MTKFw6dYNZ9AE0lw69WYbIhUsU9Q==",
-      "files": [
-        "Newtonsoft.Json.6.0.6.nupkg",
-        "Newtonsoft.Json.6.0.6.nupkg.sha512",
+        "Newtonsoft.Json.7.0.1.nupkg",
+        "Newtonsoft.Json.7.0.1.nupkg.sha512",
         "Newtonsoft.Json.nuspec",
         "lib/net20/Newtonsoft.Json.dll",
         "lib/net20/Newtonsoft.Json.xml",
@@ -4713,12 +4500,10 @@
         "lib/net40/Newtonsoft.Json.xml",
         "lib/net45/Newtonsoft.Json.dll",
         "lib/net45/Newtonsoft.Json.xml",
-        "lib/netcore45/Newtonsoft.Json.dll",
-        "lib/netcore45/Newtonsoft.Json.xml",
         "lib/portable-net40+sl5+wp80+win8+wpa81/Newtonsoft.Json.dll",
         "lib/portable-net40+sl5+wp80+win8+wpa81/Newtonsoft.Json.xml",
-        "lib/portable-net45+wp80+win8+wpa81+aspnetcore50/Newtonsoft.Json.dll",
-        "lib/portable-net45+wp80+win8+wpa81+aspnetcore50/Newtonsoft.Json.xml",
+        "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Newtonsoft.Json.dll",
+        "lib/portable-net45+wp80+win8+wpa81+dnxcore50/Newtonsoft.Json.xml",
         "tools/install.ps1"
       ]
     },
@@ -4729,118 +4514,6 @@
         "Owin.1.0.nupkg.sha512",
         "Owin.nuspec",
         "lib/net40/Owin.dll"
-      ]
-    },
-    "Rx-Core/2.2.4": {
-      "sha512": "Xxux6gBvyGchrqFVBbYn/+hQ+iSror3yhI07sx48G+jk85VTP7n7+2vrKQkZXC4PMqVcg1ImZQDLGWXnramqIA==",
-      "files": [
-        "Rx-Core.2.2.4.nupkg",
-        "Rx-Core.2.2.4.nupkg.sha512",
-        "Rx-Core.nuspec",
-        "lib/net40/System.Reactive.Core.dll",
-        "lib/net40/System.Reactive.Core.XML",
-        "lib/net45/System.Reactive.Core.dll",
-        "lib/net45/System.Reactive.Core.XML",
-        "lib/portable-net40+sl5+win8+wp8/System.Reactive.Core.dll",
-        "lib/portable-net40+sl5+win8+wp8/System.Reactive.Core.XML",
-        "lib/portable-win81+wpa81/System.Reactive.Core.dll",
-        "lib/portable-win81+wpa81/System.Reactive.Core.XML",
-        "lib/portable-windows8+net45+wp8/System.Reactive.Core.dll",
-        "lib/portable-windows8+net45+wp8/System.Reactive.Core.XML",
-        "lib/sl5/System.Reactive.Core.dll",
-        "lib/sl5/System.Reactive.Core.XML",
-        "lib/windows8/System.Reactive.Core.dll",
-        "lib/windows8/System.Reactive.Core.XML",
-        "lib/windowsphone71/System.Reactive.Core.dll",
-        "lib/windowsphone71/System.Reactive.Core.XML",
-        "lib/windowsphone8/System.Reactive.Core.dll",
-        "lib/windowsphone8/System.Reactive.Core.XML"
-      ]
-    },
-    "Rx-Interfaces/2.2.4": {
-      "sha512": "RlHyosjs0NUJ839w0nzmLm74kfFeMiDW8POHheDaSH9QrlTwtWhWnxLRVzAz0NdGoDNvnuplth1KULYLcuzdKw==",
-      "files": [
-        "Rx-Interfaces.2.2.4.nupkg",
-        "Rx-Interfaces.2.2.4.nupkg.sha512",
-        "Rx-Interfaces.nuspec",
-        "lib/net40/System.Reactive.Interfaces.dll",
-        "lib/net40/System.Reactive.Interfaces.XML",
-        "lib/net45/System.Reactive.Interfaces.dll",
-        "lib/net45/System.Reactive.Interfaces.XML",
-        "lib/portable-net40+sl5+win8+wp8/System.Reactive.Interfaces.dll",
-        "lib/portable-net40+sl5+win8+wp8/System.Reactive.Interfaces.XML",
-        "lib/portable-win81+wpa81/System.Reactive.Interfaces.dll",
-        "lib/portable-win81+wpa81/System.Reactive.Interfaces.XML",
-        "lib/portable-windows8+net45+wp8/System.Reactive.Interfaces.dll",
-        "lib/portable-windows8+net45+wp8/System.Reactive.Interfaces.XML",
-        "lib/sl5/System.Reactive.Interfaces.dll",
-        "lib/sl5/System.Reactive.Interfaces.XML",
-        "lib/windows8/System.Reactive.Interfaces.dll",
-        "lib/windows8/System.Reactive.Interfaces.XML",
-        "lib/windowsphone71/System.Reactive.Interfaces.dll",
-        "lib/windowsphone71/System.Reactive.Interfaces.XML",
-        "lib/windowsphone8/System.Reactive.Interfaces.dll",
-        "lib/windowsphone8/System.Reactive.Interfaces.XML"
-      ]
-    },
-    "Rx-Linq/2.2.4": {
-      "sha512": "/YeFY0R789cmTP5odSAtivJuY9SPA6blUkgA5eDFCS07Ajz7VjMw1VnG6G/Dt1nn+YyMWJcLKZi2PhQEqJ7Ikw==",
-      "files": [
-        "Rx-Linq.2.2.4.nupkg",
-        "Rx-Linq.2.2.4.nupkg.sha512",
-        "Rx-Linq.nuspec",
-        "lib/net40/System.Reactive.Linq.dll",
-        "lib/net40/System.Reactive.Linq.XML",
-        "lib/net45/System.Reactive.Linq.dll",
-        "lib/net45/System.Reactive.Linq.XML",
-        "lib/portable-net40+sl5+win8+wp8/System.Reactive.Linq.dll",
-        "lib/portable-net40+sl5+win8+wp8/System.Reactive.Linq.XML",
-        "lib/portable-win81+wpa81/System.Reactive.Linq.dll",
-        "lib/portable-win81+wpa81/System.Reactive.Linq.XML",
-        "lib/portable-windows8+net45+wp8/System.Reactive.Linq.dll",
-        "lib/portable-windows8+net45+wp8/System.Reactive.Linq.XML",
-        "lib/sl5/System.Reactive.Linq.dll",
-        "lib/sl5/System.Reactive.Linq.XML",
-        "lib/windows8/System.Reactive.Linq.dll",
-        "lib/windows8/System.Reactive.Linq.XML",
-        "lib/windowsphone71/System.Reactive.Linq.dll",
-        "lib/windowsphone71/System.Reactive.Linq.XML",
-        "lib/windowsphone8/System.Reactive.Linq.dll",
-        "lib/windowsphone8/System.Reactive.Linq.XML"
-      ]
-    },
-    "Rx-Main/2.2.4": {
-      "sha512": "s0bvJ9NZRLBKySnuBzqB9DYGypCANCBv9xTGB2vNQScDOgsv5Oj3dc2Gqce2YUZX+sk60LIjSh74qip81mphNg==",
-      "files": [
-        "Rx-Main.2.2.4.nupkg",
-        "Rx-Main.2.2.4.nupkg.sha512",
-        "Rx-Main.nuspec"
-      ]
-    },
-    "Rx-PlatformServices/2.2.4": {
-      "sha512": "wPoZpyuVRnyo1OyanrxfopZopN9if8rwewcWulSMaq2H86dhaG5N29pDgBOolFsMQypSAbe3MnJZYYvJqsLqCQ==",
-      "files": [
-        "Rx-PlatformServices.2.2.4.nupkg",
-        "Rx-PlatformServices.2.2.4.nupkg.sha512",
-        "Rx-PlatformServices.nuspec",
-        "lib/net40/System.Reactive.PlatformServices.dll",
-        "lib/net40/System.Reactive.PlatformServices.XML",
-        "lib/net45/System.Reactive.PlatformServices.dll",
-        "lib/net45/System.Reactive.PlatformServices.XML",
-        "lib/portable-net40+sl5+win8+wp8/System.Reactive.PlatformServices.dll",
-        "lib/portable-net40+sl5+win8+wp8/System.Reactive.PlatformServices.XML",
-        "lib/portable-win81+wpa81/System.Reactive.PlatformServices.dll",
-        "lib/portable-win81+wpa81/System.Reactive.PlatformServices.XML",
-        "lib/portable-windows8+net45+wp8/System.Reactive.PlatformServices.dll",
-        "lib/portable-windows8+net45+wp8/System.Reactive.PlatformServices.XML",
-        "lib/sl5/System.Reactive.PlatformServices.dll",
-        "lib/sl5/System.Reactive.PlatformServices.XML",
-        "lib/windows8/System.Reactive.PlatformServices.dll",
-        "lib/windows8/System.Reactive.PlatformServices.XML",
-        "lib/windowsphone71/System.Reactive.PlatformServices.dll",
-        "lib/windowsphone71/System.Reactive.PlatformServices.XML",
-        "lib/windowsphone8/System.Reactive.PlatformServices.dll",
-        "lib/windowsphone8/System.Reactive.PlatformServices.XML"
       ]
     },
     "System.Collections/4.0.10-beta-23019": {
@@ -5826,16 +5499,11 @@
       "Microsoft.AspNet.Server.IIS >= 1.0.0-beta5",
       "Microsoft.AspNet.Server.WebListener >= 1.0.0-beta5",
       "Microsoft.AspNet.StaticFiles >= 1.0.0-beta5",
-      "Microsoft.Owin >= 3.0.1",
-      "Microsoft.Owin.Security.Twitter >= 3.0.1",
+      "Microsoft.Owin.Cors >= 3.0.1",
+      "Newtonsoft.Json >= 7.0.1",
       "Microsoft.AspNet.Authentication.Twitter >= 1.0.0-beta5",
-      "Microsoft.Owin.Security >= 3.0.1",
-      "Microsoft.Owin.Security.Cookies >= 3.0.1",
-      "Microsoft.Owin.Security.OAuth >= 3.0.1",
-      "MyCouch.AspNet.Identity >= 0.3.0",
-      "Microsoft.AspNet.Identity.Core >= 2.2.1",
-      "Microsoft.AspNet.Identity.EntityFramework >= 2.2.1",
-      "Microsoft.AspNet.WebApi.Owin >= 5.2.3"
+      "Microsoft.AspNet.WebApi.HelpPage >= 5.2.3",
+      "Microsoft.AspNet.Authentication.Cookies >= 1.0.0-beta5"
     ],
     "DNX,Version=v4.5.1": [],
     "DNXCore,Version=v5.0": []

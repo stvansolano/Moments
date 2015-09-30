@@ -1,4 +1,4 @@
-﻿namespace BackendService
+﻿namespace Backend
 {
     using Microsoft.AspNet.Builder;
     using Microsoft.AspNet.Hosting;
@@ -31,7 +31,7 @@
             // Add the following route for porting Web API 2 controllers.
             // routes.MapWebApiRoute("DefaultApi", "api/{controller}/{id?}");
 
-            //ConfigureAuth(app);
+            ConfigureAuth(app);
         }
     }
 }
