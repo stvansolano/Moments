@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace Moments
+namespace Backend
 {
 	public class User
 	{

@@ -7,7 +7,7 @@
   <Import Project="$(VSToolsPath)\DNX\Microsoft.DNX.Props" Condition="'$(VSToolsPath)' != ''" />
   <PropertyGroup Label="Globals">
     <ProjectGuid>bfbf40c1-7dac-4f0e-8d5a-ace4a573b9fe</ProjectGuid>
-    <RootNamespace>BackendService</RootNamespace>
+    <RootNamespace>Backend</RootNamespace>
     <BaseIntermediateOutputPath Condition="'$(BaseIntermediateOutputPath)'=='' ">..\..\Moments\artifacts\obj\$(MSBuildProjectName)</BaseIntermediateOutputPath>
     <OutputPath Condition="'$(OutputPath)'=='' ">..\..\Moments\artifacts\bin\$(MSBuildProjectName)\</OutputPath>
   </PropertyGroup>

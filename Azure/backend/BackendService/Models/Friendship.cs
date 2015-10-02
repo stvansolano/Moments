@@ -1,10 +1,8 @@
-using System;
-using System.Collections.Generic;
-using Newtonsoft.Json;
-
-namespace Moments
+namespace Backend
 {
-	public class Friendship
+    using Newtonsoft.Json;
+
+    public class Friendship
 	{
 		public string Id { get; set; }
 

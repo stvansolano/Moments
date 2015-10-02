@@ -2,7 +2,7 @@ using System;
 using Newtonsoft.Json;
 //using Humanizer;
 
-namespace Moments
+namespace Backend
 {
 	public class Moment
 	{

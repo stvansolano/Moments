@@ -2,27 +2,19 @@
 
 namespace Backend.Controllers
 {
-    using System.Collections.Generic;
     using Microsoft.AspNet.Mvc;
-    using Moments;
+    using System.Collections.Generic;
 
     [Route("/[controller]")]
-    public class FriendsController : Controller
+    public partial class FriendsController : Controller
     {
-        // GET: api/values
-        [HttpGet]
-        public IEnumerable<User> Get(bool getFriends, string userId)
-        {
-            return new User[] { new User { Id = "1234", Name = "Esteban Solano G." } };
-        }
+        public FriendshipRepository Repository { get; private set; }
 
-        // GET api/values/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        public FriendsController()
         {
-            return "value";
+            Repository = new FriendshipRepository();
         }
-
+        
         // POST api/values
         [HttpPost]
         public void Post([FromBody]string value)
@@ -39,6 +31,28 @@ namespace Backend.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+        }
+
+        public IEnumerable<User> Get(bool getFriends, string userId)
+        {
+            if (getFriends)
+            {
+                var results = Repository.Where(friendshipRequest => friendshipRequest.Accepted && friendshipRequest.UserId == userId);
+            }
+
+            /*var employeeQuery = await table.CreateQuery<FriendshipEntity>();
+            var query = (from employee in employeeQuery
+                         where employee.Accepted
+                         select employee).AsTableQuery();
+
+            var queryResults = query.Execute();
+
+            var results = (from item in queryResults
+                           select new User { Id = item.UserId, Name = "Esteban Solano G." }).ToArray();
+
+            return results;*/
+
+            return new User[] { new User { Id = "1234", Name = "Esteban Solano G." } };
         }
     }
 }

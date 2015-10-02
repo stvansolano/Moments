@@ -4,6 +4,7 @@
     using Microsoft.AspNet.Authentication.Cookies;
     using Microsoft.AspNet.Authentication.Twitter;
     using Microsoft.AspNet.Builder;
+    using Microsoft.AspNet.Http;
 
     public partial class Startup
     {
@@ -25,10 +26,12 @@
                 //Provider = new ApplicationOAuthProvider(PublicClientId, IdentityManagerFactory, CookieOptions)
             };*/
         }
+
+        public CookieAuthenticationOptions CookieOptions { get; private set; }
+
         /*
         public static OAuthAuthorizationServerOptions OAuthOptions { get; private set; }
 
-        public static CookieAuthenticationOptions CookieOptions { get; private set; }
 
         //public static IdentityManagerFactory IdentityManagerFactory { get; set; }
         */
@@ -55,6 +58,11 @@
             //    options.ConsumerKey = "";
             //    options.ConsumerSecret = "";
             //});
+
+            // Add cookie-based authentication to the request pipeline
+            app.UseCookieAuthentication(options => {
+                options.LoginPath = new PathString("/Account/Login");
+            });
 
             app.UseTwitterAuthentication(options => {
                 options.ConsumerKey = "TcZ4H3Rg92YKwlTKDsestfO8S";
