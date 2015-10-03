@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
 
     public class UserRepository : RepositoryBase<UserEntity>
     {
@@ -11,9 +12,22 @@
 
         }
 
-        internal bool Add(User model)
+        internal void Add(User model)
         {
-            return true;
+            // Create a new customer entity. 
+            var entity = ToEntity(model);
+
+            Insert(entity.Tuple);
+        }
+
+        private UserEntity ToEntity(User model)
+        {
+            var entity = Create();
+            entity.Name = model.Name;
+            entity.ProfileImage = model.ProfileImage;
+            entity.SendMoment = model.SendMoment;
+
+            return entity;
         }
 
         public new IEnumerable<User> Find(Predicate<UserEntity> predicate)
@@ -22,9 +36,9 @@
                     select FromEntity(entity)).ToArray();
         }
 
-        public new IEnumerable<User> GetAll()
+        public new async Task<IEnumerable<User>> GetAll()
         {
-            return (from entity in base.GetAll()
+            return (from entity in await base.GetAll()
                     select FromEntity(entity)).ToArray();
         }
 

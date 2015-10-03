@@ -5,6 +5,9 @@ namespace Backend.Controllers
     using Microsoft.AspNet.Mvc;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Net;
+    using System.Net.Http;
+    using System.Threading.Tasks;
 
     [Route("/[controller]")]
     public class UsersController : Controller
@@ -16,9 +19,10 @@ namespace Backend.Controllers
 
         public UserRepository Repository { get; private set; }
 
-        public IEnumerable<User> Get()
+        [HttpGet]
+        public async Task<IEnumerable<User>> Get()
         {
-            var result = Repository.GetAll();
+            var result = await Repository.GetAll();
             if (result.Any() == false)
             {
                 return new User[] { new User { Id = "-1", Name = "No users yet", SendMoment = false} };
@@ -26,16 +30,16 @@ namespace Backend.Controllers
             return result;
         }
 
+        //[ValidateAntiForgeryToken]
         [HttpPost]
-        public ActionResult Insert(User model)
+        public HttpResponseMessage Post([FromBody] User model)
         {
-            var result = Repository.Add(model);
+            //var model = JsonConvert.DeserializeObject<User>(json);
+            Repository.Add(model);
 
-            if (result)
-            {
-                return Created(Url.Link("User", 1), model);
-            }
-            return HttpBadRequest();
+            Repository.Execute();
+
+            return new HttpResponseMessage(HttpStatusCode.Created);
         }
     }
 }

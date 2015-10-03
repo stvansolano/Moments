@@ -3,12 +3,12 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
 
     public class AccountRepository : RepositoryBase<AccountEntity>
     {
         public AccountRepository() : base("Account")
         {
-
         }
 
         internal bool Add(Account model)
@@ -22,9 +22,9 @@
                     select FromEntity(entity)).ToArray();
         }
 
-        public new IEnumerable<Account> GetAll()
+        public new async Task<IEnumerable<Account>> GetAll()
         {
-            return (from entity in base.GetAll()
+            return (from entity in await base.GetAll()
                     select FromEntity(entity)).ToArray();
         }
 

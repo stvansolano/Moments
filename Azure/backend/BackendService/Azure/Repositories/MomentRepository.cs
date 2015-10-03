@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
 
     public class MomentRepository : RepositoryBase<MomentEntity>
     {
@@ -17,9 +18,9 @@
                     select FromEntity(entity)).ToArray();
         }
 
-        public new IEnumerable<Moment> GetAll()
+        public new async Task<IEnumerable<Moment>> GetAll()
         {
-            return (from entity in base.GetAll()
+            return (from entity in await base.GetAll()
                     select FromEntity(entity)).ToArray();
         }
 
