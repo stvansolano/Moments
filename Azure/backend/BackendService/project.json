@@ -22,11 +22,17 @@
     },
 
     "commands": {
-        "web": "Microsoft.AspNet.Hosting --config hosting.ini"
+      "web": "Microsoft.AspNet.Hosting --config hosting.ini",
+      "kestrel" : "Microsoft.AspNet.Hosting --server Kestrel --server.urls http://localhost:5004"
+
     },
 
     "frameworks": {
-        "dnx451": { },
+        "dnx451": {
+            "dependencies": {
+                "Microsoft.AspNet.WebPages": "3.2.3"
+            }
+        },
         "dnxcore50": { }
     },
 
