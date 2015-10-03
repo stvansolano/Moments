@@ -11,6 +11,13 @@ namespace Backend.Controllers
     [Route("/[controller]")]
     public class AccountController : Controller //IdentityController<IdentityUser, IdentityDbContext>
     {
+        public AccountRepository Repository { get; set; }
+
+        public AccountController()
+        {
+            Repository = new AccountRepository();
+        }
+
         [HttpPost]
         public bool Login()
         {
