@@ -1,7 +1,7 @@
 ﻿namespace Backend
 {
     using Microsoft.AspNet.Authentication;
-    using Microsoft.AspNet.Authentication.Cookies;
+    //using Microsoft.AspNet.Authentication.Cookies;
     using Microsoft.AspNet.Authentication.Twitter;
     using Microsoft.AspNet.Builder;
     using Microsoft.AspNet.Http;
@@ -27,7 +27,7 @@
             };*/
         }
 
-        public CookieAuthenticationOptions CookieOptions { get; private set; }
+        //public CookieAuthenticationOptions CookieOptions { get; private set; }
 
         /*
         public static OAuthAuthorizationServerOptions OAuthOptions { get; private set; }
@@ -60,7 +60,7 @@
             //});
 
             // Add cookie-based authentication to the request pipeline
-            app.UseCookieAuthentication(options => {
+            /*app.UseCookieAuthentication(options => {
                 options.LoginPath = new PathString("/Account/Login");
             });
 
@@ -69,7 +69,7 @@
                 options.ConsumerSecret = "ldALPeUtFfT5W6nFuD9Y6CY4vIRgdeLdzW9k9Z88bZuaUXesrv";
                 options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
             });
-
+            */
             //app.UseFacebookAuthentication(
             //    appId: "",
             //    appSecret: "");

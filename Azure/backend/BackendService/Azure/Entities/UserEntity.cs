@@ -1,8 +1,8 @@
 namespace Backend
 {
-    using Microsoft.WindowsAzure.Storage.Table;
+    //using Microsoft.WindowsAzure.Storage.Table;
 
-    public class UserEntity : TableEntity
+    public class UserEntity //: TableEntity
     {
         public string Id { get; set; }
         public string Name { get; set; }
