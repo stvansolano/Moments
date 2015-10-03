@@ -2,22 +2,57 @@
 {
     public class FriendshipEntity : StorageEntity
     {
-        //TODO: Allocate properties: Friendship
-        public string Id { get; set; }
-        public string UserId { get; set; }
-        public string FriendId { get; set; }
-        public bool Accepted { get; set; }
-
         public FriendshipEntity()
         {
+            AllocateProperty("UserId", string.Empty);
+            AllocateProperty("FriendId", string.Empty);
+            AllocateProperty("Accepted", false);
+
             Map = (storage, entity) => {
                 var friendship = (FriendshipEntity)entity;
 
-                friendship.Accepted = FromStoredPropertyBoolean(storage, "Accepted").GetValueOrDefault(false);
-                friendship.FriendId = FromStoredPropertyString(storage, "FriendId");
-                friendship.Id = FromStoredPropertyString(storage, "Id");
                 friendship.UserId = FromStoredPropertyString(storage, "UserId");
+                friendship.FriendId = FromStoredPropertyString(storage, "FriendId");
+                friendship.Accepted = FromStoredPropertyBoolean(storage, "Accepted").GetValueOrDefault(false);
             };
+        }
+
+        public string Id
+        {
+            get { return Tuple.RowKey; }
+        }
+
+        private string _userId;
+        public string UserId
+        {
+            get { return _userId; }
+            set
+            {
+                _userId = value;
+                SetValue("UserId", value);
+            }
+        }
+
+        private string _friendId;
+        public string FriendId
+        {
+            get { return _friendId; }
+            set
+            {
+                _friendId = value;
+                SetValue("FriendId", value);
+            }
+        }
+
+        private bool _accepted;
+        public bool Accepted
+        {
+            get { return _accepted; }
+            set
+            {
+                _accepted = value;
+                SetValue("Accepted", value);
+            }
         }
     }
 }
