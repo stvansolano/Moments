@@ -33,11 +33,11 @@
             // Add the following route for porting Web API 2 controllers.
             // routes.MapWebApiRoute("DefaultApi", "api/{controller}/{id?}");
 
-            app.UseRuntimeInfoPage();
+            //app.UseRuntimeInfoPage();
 
             //app.UseWelcomePage("/welcome");
 
-            app.Run(async (context) =>
+            /*app.Run(async (context) =>
             {
                 if (context.Request.Query.ContainsKey("throw")) throw new Exception("Exception triggered!");
                 context.Response.ContentType = "text/html";
@@ -47,7 +47,7 @@
                 await context.Response.WriteAsync("<li><a href=\"/?throw=true\">Throw Exception</a></li>");
                 await context.Response.WriteAsync("</ul>");
                 await context.Response.WriteAsync("</body></html>");
-            });
+            });*/
 
             ConfigureAuth(app);
         }
