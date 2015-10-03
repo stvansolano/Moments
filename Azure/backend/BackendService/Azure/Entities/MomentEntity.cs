@@ -1,9 +1,9 @@
 namespace Backend
 {
     using System;
-    //using Microsoft.WindowsAzure.Storage.Table;
+    using Microsoft.WindowsAzure.Storage.Table;
 
-    public class MomentEntity //: TableEntity
+    public class MomentEntity : TableEntity
     {
 		public string Id { get; set; }
 		public string MomentUrl { get; set; }

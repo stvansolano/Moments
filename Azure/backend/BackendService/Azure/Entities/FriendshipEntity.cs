@@ -1,8 +1,8 @@
 ﻿namespace Backend
 {
-    //using Microsoft.WindowsAzure.Storage.Table;
+    using Microsoft.WindowsAzure.Storage.Table;
 
-    public class FriendshipEntity //: TableEntity
+    public class FriendshipEntity : TableEntity
     {
         public string Id { get; set; }
 
