@@ -20,6 +20,17 @@
             Insert(entity.Tuple);
         }
 
+        private User FromEntity(UserEntity entity)
+        {
+            return new User
+            {
+                Id = entity.Id,
+                Name = entity.Name,
+                ProfileImage = entity.ProfileImage,
+                SendMoment = entity.SendMoment
+            };
+        }
+
         private UserEntity ToEntity(User model)
         {
             var entity = Create();
@@ -30,27 +41,10 @@
             return entity;
         }
 
-        public new IEnumerable<User> Find(Predicate<UserEntity> predicate)
-        {
-            return (from entity in base.Find(predicate)
-                    select FromEntity(entity)).ToArray();
-        }
-
         public new async Task<IEnumerable<User>> GetAll()
         {
             return (from entity in await base.GetAll()
                     select FromEntity(entity)).ToArray();
-        }
-
-        private User FromEntity(UserEntity entity)
-        {
-            return new User
-            {
-                Id = entity.Id,
-                Name = entity.Name,
-                ProfileImage = entity.ProfileImage,
-                SendMoment = entity.SendMoment
-            };
         }
     }
 }

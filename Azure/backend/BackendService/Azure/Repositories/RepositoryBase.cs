@@ -16,9 +16,9 @@
         private ConcurrentQueue<Tuple<ITableEntity, TableOperation>> _operations;
         private CloudStorageAccount _storageAccount;
 
-        protected RepositoryBase(string tableReference)
+        protected RepositoryBase(string partitionKey)
         {
-            TableName = tableReference;
+            PartitionKey = partitionKey;
             _connectionString = "DefaultEndpointsProtocol=https;AccountName=momentsmedia;AccountKey=mlEnCMJk46fyWtIN8NK3nuh3UDrEvZ+6nYuO/lw1cdKzOhlVoxG4a51utKiOv3kPxUG7/K5z3v5wITzmWk5WlA==";
 
             _operations = new ConcurrentQueue<Tuple<ITableEntity, TableOperation>>();
@@ -27,35 +27,59 @@
         public Entity Create()
         {
             var entity = new Entity();
-            entity.Tuple.PartitionKey = TableName;
-            entity.Tuple.RowKey = Guid.NewGuid().ToString();
+            entity.Tuple.PartitionKey = PartitionKey;
 
             return entity;
         }
 
-        public void Insert<TEntity>(TEntity entity)
+        protected void Insert<TEntity>(TEntity entity)
             where TEntity : ITableEntity
         {
+            if (string.IsNullOrEmpty(entity.RowKey))
+            {
+                entity.RowKey = Guid.NewGuid().ToString();
+            }
+            if (string.IsNullOrEmpty(entity.PartitionKey))
+            {
+                entity.PartitionKey = PartitionKey;
+            }
             var e = new Tuple<ITableEntity, TableOperation>(entity, TableOperation.Insert(entity));
 
             _operations.Enqueue(e);
         }
 
-        public string TableName { get; private set; }
+        public string PartitionKey { get; private set; }
 
         public async Task<IEnumerable<Entity>> GetAll()
         {
-            TableQuery<DynamicTableEntity> query = new TableQuery<DynamicTableEntity>()
-                                                .Where(TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, TableName)/*,
+            var query = new TableQuery<DynamicTableEntity>()
+                                                .Where(TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, PartitionKey)/*,
                                                     TableOperators.And,
                                                     TableQuery.CombineFilters(
                                                         TableQuery.GenerateFilterCondition("RowKey", QueryComparisons.Equal, "row1"),
                                                         TableOperators.Or,
                                                         TableQuery.GenerateFilterCondition("RowKey", QueryComparisons.Equal, "row2"))*/);
 
+            return await ExecuteQuery(query);
+        }
+
+        protected virtual async Task<IEnumerable<Entity>> Find(string property, string value)
+        {
+            var query = new TableQuery<DynamicTableEntity>()
+                                               .Where(TableQuery.CombineFilters(TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, PartitionKey),
+                                                    TableOperators.And,
+                                                    TableQuery.GenerateFilterCondition(property, QueryComparisons.Equal, value))
+                                               );
+
+            return await ExecuteQuery(query);
+        }
+
+        private async Task<IEnumerable<Entity>> ExecuteQuery(TableQuery<DynamicTableEntity> query)
+        {
             var token = new TableContinuationToken();
 
-            var segment = await MakeTableReference().ExecuteQuerySegmentedAsync(query, token).ConfigureAwait(false);
+            var table = await MakeTableReference().ConfigureAwait(false);
+            var segment = await table.ExecuteQuerySegmentedAsync(query, token).ConfigureAwait(false);
 
             var results = (from fetch in segment.ToArray()
                            let result = new { Entity = new Entity(), Result = fetch }
@@ -68,16 +92,12 @@
             return results.Select(item => item.Entity).ToArray();
         }
 
-        public virtual IEnumerable<Entity> Find(Predicate<Entity> predicate)
-        {
-            return new Entity[0];
-        }
-
         public async Task<Entity> Find(string rowKey)
         {
-            var retrieveOperation = TableOperation.Retrieve(TableName, rowKey);
-            var retrievedResult = await MakeTableReference().ExecuteAsync(retrieveOperation).ConfigureAwait(false);
+            var retrieveOperation = TableOperation.Retrieve(PartitionKey, rowKey);
+            var table = await MakeTableReference().ConfigureAwait(false);
 
+            var retrievedResult = await table.ExecuteAsync(retrieveOperation).ConfigureAwait(false);
             var fetch = retrievedResult.Result as DynamicTableEntity;
             var entity = new Entity();
 
@@ -86,7 +106,7 @@
             return entity;
         }
 
-        public void Execute()
+        public void Commit()
         {
             var count = _operations.Count;
             var toExecute = new List<Tuple<ITableEntity, TableOperation>>();
@@ -125,19 +145,21 @@
         {
             var tableRequestOptions = MakeTableRequestOptions();
 
-            var tableReference = MakeTableReference();
+            var tableReference = await MakeTableReference().ConfigureAwait(false);
 
             await tableReference.ExecuteBatchAsync(tableBatchOperation).ConfigureAwait(false);
         }
 
-        private CloudTable MakeTableReference()
+        private async Task<CloudTable> MakeTableReference()
         {
             if (_storageAccount == null)
             {
                 _storageAccount = CloudStorageAccount.Parse(_connectionString);
             }
             var tableClient = _storageAccount.CreateCloudTableClient();
-            var tableReference = tableClient.GetTableReference(TableName);
+            var tableReference = tableClient.GetTableReference(PartitionKey);
+
+            await tableReference.CreateIfNotExistsAsync().ConfigureAwait(false);
 
             return tableReference;
         }

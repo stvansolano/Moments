@@ -12,12 +12,6 @@
 
         }
 
-        public new IEnumerable<Moment> Find(Predicate<MomentEntity> predicate)
-        {
-            return (from entity in base.Find(predicate)
-                    select FromEntity(entity)).ToArray();
-        }
-
         public new async Task<IEnumerable<Moment>> GetAll()
         {
             return (from entity in await base.GetAll()
@@ -31,12 +25,41 @@
                 DisplayTime = entity.DisplayTime,
                 Id = entity.Id,
                 MomentUrl = entity.MomentUrl,
-                SenderName = entity.SenderName,
+                //SenderName = entity.SenderName,
                 SenderUserId = entity.SenderUserId,
                 RecipientUserId = entity.RecipientUserId,
                 SenderProfileImage = entity.SenderProfileImage,
                 TimeSent = entity.TimeSent
             };
+        }
+
+        internal async Task<IEnumerable<Moment>> FindSentTo(string userId)
+        {
+            var entities = await Find("RecipientUserId", userId).ConfigureAwait(false);
+
+            return entities.Select(entity => FromEntity(entity)).ToArray();
+        }
+
+        private MomentEntity ToEntity(Moment model)
+        {
+            var entity = Create();
+
+            entity.DisplayTime = model.DisplayTime;
+            entity.MomentUrl = model.MomentUrl;
+            //entity.SenderName = model.SenderName;
+            entity.SenderUserId = model.SenderUserId;
+            entity.RecipientUserId = model.RecipientUserId;
+            entity.SenderProfileImage = model.SenderProfileImage;
+            entity.TimeSent = model.TimeSent;
+
+            return entity;
+        }
+
+        internal void Add(Moment model)
+        {
+            var entity = ToEntity(model);
+
+            Insert(entity.Tuple);
         }
     }
 }

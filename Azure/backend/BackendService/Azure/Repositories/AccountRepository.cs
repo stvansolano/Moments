@@ -16,12 +16,6 @@
             return true;
         }
 
-        public new IEnumerable<Account> Find(Predicate<AccountEntity> predicate)
-        {
-            return (from entity in base.Find(predicate)
-                    select FromEntity(entity)).ToArray();
-        }
-
         public new async Task<IEnumerable<Account>> GetAll()
         {
             return (from entity in await base.GetAll()

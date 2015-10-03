@@ -34,10 +34,9 @@ namespace Backend.Controllers
         [HttpPost]
         public HttpResponseMessage Post([FromBody] User model)
         {
-            //var model = JsonConvert.DeserializeObject<User>(json);
             Repository.Add(model);
 
-            Repository.Execute();
+            Repository.Commit();
 
             return new HttpResponseMessage(HttpStatusCode.Created);
         }
