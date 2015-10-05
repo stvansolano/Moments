@@ -706,24 +706,6 @@
           "lib/net45/System.Web.Http.WebHost.dll": {}
         }
       },
-      "Microsoft.AspNet.WebPages/3.2.3": {
-        "dependencies": {
-          "Microsoft.Web.Infrastructure": "1.0.0.0",
-          "Microsoft.AspNet.Razor": "[3.2.3, 3.3.0)"
-        },
-        "compile": {
-          "lib/net45/System.Web.Helpers.dll": {},
-          "lib/net45/System.Web.WebPages.Deployment.dll": {},
-          "lib/net45/System.Web.WebPages.dll": {},
-          "lib/net45/System.Web.WebPages.Razor.dll": {}
-        },
-        "runtime": {
-          "lib/net45/System.Web.Helpers.dll": {},
-          "lib/net45/System.Web.WebPages.Deployment.dll": {},
-          "lib/net45/System.Web.WebPages.dll": {},
-          "lib/net45/System.Web.WebPages.Razor.dll": {}
-        }
-      },
       "Microsoft.AspNet.WebUtilities/1.0.0-beta5": {
         "dependencies": {
           "Microsoft.Framework.WebEncoders.Core": "1.0.0-beta5"
@@ -1325,14 +1307,6 @@
         },
         "runtime": {
           "lib/net45/Microsoft.Net.WebSockets.dll": {}
-        }
-      },
-      "Microsoft.Web.Infrastructure/1.0.0.0": {
-        "compile": {
-          "lib/net40/Microsoft.Web.Infrastructure.dll": {}
-        },
-        "runtime": {
-          "lib/net40/Microsoft.Web.Infrastructure.dll": {}
         }
       },
       "Newtonsoft.Json/7.0.1": {
@@ -4535,25 +4509,6 @@
         "lib/net45/System.Web.Http.WebHost.xml"
       ]
     },
-    "Microsoft.AspNet.WebPages/3.2.3": {
-      "serviceable": true,
-      "sha512": "zbtxBERla5RE/mhftwbrXOzc0r6lh8WcnjpGW7QQe+PvSDDx1BgsTUGzfCXO/vJznHNpY5oCSYLt8Q5vUu7F0g==",
-      "files": [
-        "Microsoft.AspNet.WebPages.3.2.3.nupkg",
-        "Microsoft.AspNet.WebPages.3.2.3.nupkg.sha512",
-        "Microsoft.AspNet.WebPages.nuspec",
-        "Content/Web.config.install.xdt",
-        "Content/Web.config.uninstall.xdt",
-        "lib/net45/System.Web.Helpers.dll",
-        "lib/net45/System.Web.Helpers.xml",
-        "lib/net45/System.Web.WebPages.Deployment.dll",
-        "lib/net45/System.Web.WebPages.Deployment.xml",
-        "lib/net45/System.Web.WebPages.dll",
-        "lib/net45/System.Web.WebPages.Razor.dll",
-        "lib/net45/System.Web.WebPages.Razor.xml",
-        "lib/net45/System.Web.WebPages.xml"
-      ]
-    },
     "Microsoft.AspNet.WebUtilities/1.0.0-beta5": {
       "serviceable": true,
       "sha512": "Ieb9JeaI57V2HRWyFsQE+Ioo7jRE7gp8QgmHAgCuc58RfUUvKf3BdmjMMqw+0DfOQMf4VL9xWpj0yQ/bMA1VDA==",
@@ -5362,15 +5317,6 @@
         "lib/dnxcore50/Microsoft.Net.WebSockets.xml",
         "lib/net45/Microsoft.Net.WebSockets.dll",
         "lib/net45/Microsoft.Net.WebSockets.xml"
-      ]
-    },
-    "Microsoft.Web.Infrastructure/1.0.0.0": {
-      "sha512": "FNmvLn5m2LTU/Rs2KWVo0SIIh9Ek+U0ojex7xeDaSHw/zgEP77A8vY5cVWgUtBGS8MJfDGNn8rpXJWEIQaPwTg==",
-      "files": [
-        "Microsoft.Web.Infrastructure.1.0.0.0.nupkg",
-        "Microsoft.Web.Infrastructure.1.0.0.0.nupkg.sha512",
-        "Microsoft.Web.Infrastructure.nuspec",
-        "lib/net40/Microsoft.Web.Infrastructure.dll"
       ]
     },
     "Microsoft.Win32.Primitives/4.0.0": {
@@ -7182,9 +7128,7 @@
       "Microsoft.Data.Edm >= 5.6.3",
       "WindowsAzure.Storage >= 6.0.1-preview"
     ],
-    "DNX,Version=v4.5.1": [
-      "Microsoft.AspNet.WebPages >= 3.2.3"
-    ],
+    "DNX,Version=v4.5.1": [],
     "DNXCore,Version=v5.0": []
   }
 }
