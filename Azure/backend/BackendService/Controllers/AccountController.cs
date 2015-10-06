@@ -2,10 +2,11 @@
 
 namespace Backend.Controllers
 {
+    using Microsoft.AspNet.Http;
     using Microsoft.AspNet.Http.Authentication;
     using Microsoft.AspNet.Mvc;
-    using System.Linq;
-    using System.Security.Claims;
+    using Backend;
+    using System.Threading.Tasks;
 
     //[RequireHttps]
     [Route("/[controller]")]
@@ -18,127 +19,96 @@ namespace Backend.Controllers
             Repository = new AccountRepository();
         }
 
-        [HttpPost]
-        public bool Login()
+        [HttpGet("~/signin")]
+        public ActionResult SignIn(string returnUrl = null)
         {
-            return true;
+            // Note: the "returnUrl" parameter corresponds to the endpoint the user agent
+            // will be redirected to after a successful authentication and not
+            // the redirect_uri of the requesting client application.
+            ViewBag.ReturnUrl = returnUrl;
+
+            // Note: in a real world application, you'd probably prefer creating a specific view model.
+            ActionContext.HttpContext.GetExternalProviders();
+
+            return View("SignIn");
         }
 
-        // GET api/values/5
-        [HttpPost]
-        public IActionResult SignOut()
+        [HttpPost("~/signin")]
+        public ActionResult SignIn(string provider, string returnUrl)
         {
-            return Index();
-        }
-
-        // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public bool Delete(string id)
-        {
-            return true;
-        }
-
-        [HttpGet]
-        public ActionResult Index()
-        {
-            var provider = "Cookies";
-            var properties = new AuthenticationProperties
+            // Note: the "provider" parameter corresponds to the external
+            // authentication provider choosen by the user agent.
+            if (string.IsNullOrEmpty(provider))
             {
-                RedirectUri = Url.Action("Callback", new { provider }) //ExternalLoginCallback/Login
-            };
-
-            return new ChallengeResult(provider, properties);
-
-        }
-
-        public ActionResult Callback(string provider)
-        {
-            var ctx = Request.HttpContext;
-            var result = ctx.Authentication.AuthenticateAsync("ExternalCookie").Result;
-            ctx.Authentication.SignOut("ExternalCookie");
-
-            var claims = result.Principal.Claims.ToList();
-            claims.Add(new Claim(ClaimTypes.AuthenticationMethod, provider));
-
-            var ci = new ClaimsIdentity(claims, "Cookie");
-            ctx.Authentication.SignIn(ctx.Authentication.GetAuthenticationSchemes().First().AuthenticationScheme, result.Principal);
-
-            return Redirect("~/");
-        }
-
-        // https://api.twitter.com/oauth/authenticate?oauth_token=TcZ4H3Rg92YKwlTKDsestfO8S
-
-        //[AllowAnonymous]
-        [HttpPost]
-        public IActionResult Twitter(string returnUrl) //
-        {
-            return RedirectToRoute("Home/Index");
-        }
-
-        [HttpGet]
-        public IActionResult SignIn(string param)
-        {
-            return View();
-        }
-
-        public ActionResult ExternalLogin(string provider)
-        {
-            /*var ctx = Request.HttpContext;
-            ctx.Authentication.Challenge(
-                new AuthenticationProperties
-                {
-                    RedirectUri = provider
-                },
-                provider);*/
-            return new HttpUnauthorizedResult();
-        }
-
-        /*
-        [AllowAnonymous]
-        public async Task<ActionResult> ExternalLoginCallback(string returnUrl)
-        {
-            var info = await Microsoft.AspNet.Identity.SignInManager AuthenticationManager.GetExternalLoginInfoAsync();
-            if (info == null)
-                return RedirectToAction("SignIn");
-
-            var identity = GetBasicUserIdentity(info.DefaultUserName);
-            var properties = new AuthenticationProperties { IsPersistent = true };
-
-            //AuthenticationManager.SignIn(properties "", ClaimsPrincipal.Current, properties);
-
-            return Redirect(returnUrl);
-        }
-
-        public async Task<ActionResult> ExternalLoginCallback(string returnUrl)
-        {
-            var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync();
-            if (loginInfo == null)
-            {
-                return RedirectToAction("Login");
+                return HttpBadRequest();
             }
 
-            // Sign in the user with this external login provider if the user already has a login
-            var user = await UserManager.FindAsync(loginInfo.Login);
-            if (user != null)
+            if (!ActionContext.HttpContext.IsProviderSupported(provider))
             {
-                await SignInAsync(user, isPersistent: false);
-                return RedirectToLocal(returnUrl);
+                return HttpBadRequest();
             }
-            else
+
+            // Note: the "returnUrl" parameter corresponds to the endpoint the user agent
+            // will be redirected to after a successful authentication and not
+            // the redirect_uri of the requesting client application.
+            if (string.IsNullOrEmpty(returnUrl))
             {
-                // If the user does not have an account, then prompt the user to create an account
-                ViewBag.ReturnUrl = returnUrl;
-                ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
-                return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { UserName = loginInfo.DefaultUserName });
+                return HttpBadRequest();
             }
+
+            // Instruct the middleware corresponding to the requested external identity
+            // provider to redirect the user agent to its own authorization endpoint.
+            // Note: the authenticationScheme parameter must match the value configured in Startup.cs
+            return new ChallengeResult(provider, new AuthenticationProperties
+            {
+                RedirectUri = returnUrl
+            });
         }
 
-
-        protected ClaimsIdentity GetBasicUserIdentity(string name)
+        [HttpGet("~/signout"), HttpPost("~/signout")]
+        public void SignOut()
         {
-            var claims = new List<Claim> { new Claim(ClaimTypes.Name, name) };
+            // Instruct the cookies middleware to delete the local cookie created
+            // when the user agent is redirected from the external identity provider
+            // after a successful authentication flow (e.g Google or Facebook).
 
-            return new ClaimsIdentity(claims); / DefaultAuthenticationTypes.ApplicationCookie
-        }*/
+            ActionContext.HttpContext.Authentication.SignOut("ServerCookie");
+        }
+    }
+}
+
+namespace Backend
+{
+    using Microsoft.AspNet.Http;
+    using Microsoft.AspNet.Http.Authentication;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
+    public static class HttpContextExtensions
+    {
+        public static IEnumerable<AuthenticationDescription> GetExternalProviders(this HttpContext context)
+        {
+            if (context == null)
+            {
+                throw new ArgumentNullException(nameof(context));
+            }
+
+            return from description in context.Authentication.GetAuthenticationSchemes()
+                   where !string.IsNullOrEmpty(description.AuthenticationScheme)
+                   select description;
+        }
+
+        public static bool IsProviderSupported(this HttpContext context, string provider)
+        {
+            if (context == null)
+            {
+                throw new ArgumentNullException(nameof(context));
+            }
+
+            return (from description in context.GetExternalProviders()
+                    where string.Equals(description.AuthenticationScheme, provider, StringComparison.OrdinalIgnoreCase)
+                    select description).Any();
+        }
     }
 }
