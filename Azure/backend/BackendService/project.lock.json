@@ -703,17 +703,6 @@
           "lib/net45/System.Web.Http.dll": {}
         }
       },
-      "Microsoft.AspNet.WebApi.HelpPage/5.2.3": {
-        "dependencies": {
-          "Microsoft.AspNet.WebApi.WebHost": "[5.2.3, 5.3.0)",
-          "Microsoft.AspNet.Mvc": "[5.2.3, 5.3.0)",
-          "Microsoft.AspNet.Razor": "[3.2.3, 3.3.0)"
-        },
-        "frameworkAssemblies": [
-          "System.ComponentModel.DataAnnotations",
-          "System.Runtime.Serialization"
-        ]
-      },
       "Microsoft.AspNet.WebApi.WebHost/5.2.3": {
         "dependencies": {
           "Microsoft.AspNet.WebApi.Core": "[5.2.3, 5.3.0)"
@@ -2018,13 +2007,6 @@
       "Microsoft.AspNet.WebApi.Core/5.2.3": {
         "dependencies": {
           "Microsoft.AspNet.WebApi.Client": "5.2.3"
-        }
-      },
-      "Microsoft.AspNet.WebApi.HelpPage/5.2.3": {
-        "dependencies": {
-          "Microsoft.AspNet.WebApi.WebHost": "[5.2.3, 5.3.0)",
-          "Microsoft.AspNet.Mvc": "[5.2.3, 5.3.0)",
-          "Microsoft.AspNet.Razor": "[3.2.3, 3.3.0)"
         }
       },
       "Microsoft.AspNet.WebApi.WebHost/5.2.3": {
@@ -4484,63 +4466,6 @@
         "Content/web.config.transform",
         "lib/net45/System.Web.Http.dll",
         "lib/net45/System.Web.Http.xml"
-      ]
-    },
-    "Microsoft.AspNet.WebApi.HelpPage/5.2.3": {
-      "sha512": "A63XU+7Ot1ZwqUv6sC14aQIE1hXWMsqu5Vjt/7YUdjKR6MDa5glVJNrIx4XCxnkDPmrPowUHwzsXeN0BZUJtng==",
-      "files": [
-        "Microsoft.AspNet.WebApi.HelpPage.5.2.3.nupkg",
-        "Microsoft.AspNet.WebApi.HelpPage.5.2.3.nupkg.sha512",
-        "Microsoft.AspNet.WebApi.HelpPage.nuspec",
-        "Content/Areas/HelpPage/ApiDescriptionExtensions.cs.pp",
-        "Content/Areas/HelpPage/HelpPage.css.pp",
-        "Content/Areas/HelpPage/HelpPageAreaRegistration.cs.pp",
-        "Content/Areas/HelpPage/HelpPageConfigurationExtensions.cs.pp",
-        "Content/Areas/HelpPage/XmlDocumentationProvider.cs.pp",
-        "Content/Areas/HelpPage/App_Start/HelpPageConfig.cs.pp",
-        "Content/Areas/HelpPage/Controllers/HelpController.cs.pp",
-        "Content/Areas/HelpPage/ModelDescriptions/CollectionModelDescription.cs.pp",
-        "Content/Areas/HelpPage/ModelDescriptions/ComplexTypeModelDescription.cs.pp",
-        "Content/Areas/HelpPage/ModelDescriptions/DictionaryModelDescription.cs.pp",
-        "Content/Areas/HelpPage/ModelDescriptions/EnumTypeModelDescription.cs.pp",
-        "Content/Areas/HelpPage/ModelDescriptions/EnumValueDescription.cs.pp",
-        "Content/Areas/HelpPage/ModelDescriptions/IModelDocumentationProvider.cs.pp",
-        "Content/Areas/HelpPage/ModelDescriptions/KeyValuePairModelDescription.cs.pp",
-        "Content/Areas/HelpPage/ModelDescriptions/ModelDescription.cs.pp",
-        "Content/Areas/HelpPage/ModelDescriptions/ModelDescriptionGenerator.cs.pp",
-        "Content/Areas/HelpPage/ModelDescriptions/ModelNameAttribute.cs.pp",
-        "Content/Areas/HelpPage/ModelDescriptions/ModelNameHelper.cs.pp",
-        "Content/Areas/HelpPage/ModelDescriptions/ParameterAnnotation.cs.pp",
-        "Content/Areas/HelpPage/ModelDescriptions/ParameterDescription.cs.pp",
-        "Content/Areas/HelpPage/ModelDescriptions/SimpleTypeModelDescription.cs.pp",
-        "Content/Areas/HelpPage/Models/HelpPageApiModel.cs.pp",
-        "Content/Areas/HelpPage/SampleGeneration/HelpPageSampleGenerator.cs.pp",
-        "Content/Areas/HelpPage/SampleGeneration/HelpPageSampleKey.cs.pp",
-        "Content/Areas/HelpPage/SampleGeneration/ImageSample.cs.pp",
-        "Content/Areas/HelpPage/SampleGeneration/InvalidSample.cs.pp",
-        "Content/Areas/HelpPage/SampleGeneration/ObjectGenerator.cs.pp",
-        "Content/Areas/HelpPage/SampleGeneration/SampleDirection.cs.pp",
-        "Content/Areas/HelpPage/SampleGeneration/TextSample.cs.pp",
-        "Content/Areas/HelpPage/Views/Web.config",
-        "Content/Areas/HelpPage/Views/_ViewStart.cshtml.pp",
-        "Content/Areas/HelpPage/Views/Help/Api.cshtml.pp",
-        "Content/Areas/HelpPage/Views/Help/Index.cshtml.pp",
-        "Content/Areas/HelpPage/Views/Help/ResourceModel.cshtml.pp",
-        "Content/Areas/HelpPage/Views/Help/DisplayTemplates/ApiGroup.cshtml.pp",
-        "Content/Areas/HelpPage/Views/Help/DisplayTemplates/CollectionModelDescription.cshtml.pp",
-        "Content/Areas/HelpPage/Views/Help/DisplayTemplates/ComplexTypeModelDescription.cshtml.pp",
-        "Content/Areas/HelpPage/Views/Help/DisplayTemplates/DictionaryModelDescription.cshtml.pp",
-        "Content/Areas/HelpPage/Views/Help/DisplayTemplates/EnumTypeModelDescription.cshtml.pp",
-        "Content/Areas/HelpPage/Views/Help/DisplayTemplates/HelpPageApiModel.cshtml.pp",
-        "Content/Areas/HelpPage/Views/Help/DisplayTemplates/ImageSample.cshtml.pp",
-        "Content/Areas/HelpPage/Views/Help/DisplayTemplates/InvalidSample.cshtml.pp",
-        "Content/Areas/HelpPage/Views/Help/DisplayTemplates/KeyValuePairModelDescription.cshtml.pp",
-        "Content/Areas/HelpPage/Views/Help/DisplayTemplates/ModelDescriptionLink.cshtml.pp",
-        "Content/Areas/HelpPage/Views/Help/DisplayTemplates/Parameters.cshtml.pp",
-        "Content/Areas/HelpPage/Views/Help/DisplayTemplates/Samples.cshtml.pp",
-        "Content/Areas/HelpPage/Views/Help/DisplayTemplates/SimpleTypeModelDescription.cshtml.pp",
-        "Content/Areas/HelpPage/Views/Help/DisplayTemplates/TextSample.cshtml.pp",
-        "Content/Areas/HelpPage/Views/Shared/_Layout.cshtml.pp"
       ]
     },
     "Microsoft.AspNet.WebApi.WebHost/5.2.3": {
@@ -7163,7 +7088,6 @@
       "Microsoft.AspNet.Server.WebListener >= 1.0.0-beta5",
       "Microsoft.AspNet.StaticFiles >= 1.0.0-beta5",
       "Microsoft.AspNet.Authentication.Twitter >= 1.0.0-beta5",
-      "Microsoft.AspNet.WebApi.HelpPage >= 5.2.3",
       "Newtonsoft.Json >= 7.0.1",
       "Microsoft.Data.OData >= 5.6.4",
       "Microsoft.Data.Services.Client >= 5.6.4",
@@ -7172,7 +7096,8 @@
       "System.Spatial >= 5.6.4",
       "Microsoft.Data.Edm >= 5.6.3",
       "WindowsAzure.Storage >= 6.0.1-preview",
-      "Microsoft.AspNet.Authentication.Cookies >= 1.0.0-beta5"
+      "Microsoft.AspNet.Authentication.Cookies >= 1.0.0-beta5",
+      "Microsoft.AspNet.WebApi.WebHost >= 5.2.3"
     ],
     "DNX,Version=v4.5.1": [],
     "DNXCore,Version=v5.0": []
