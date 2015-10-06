@@ -1,10 +1,12 @@
 ﻿namespace Backend
 {
     using Microsoft.AspNet.Authentication;
+    using Microsoft.AspNet.Authentication.Cookies;
     //using Microsoft.AspNet.Authentication.Cookies;
     using Microsoft.AspNet.Authentication.Twitter;
     using Microsoft.AspNet.Builder;
     using Microsoft.AspNet.Http;
+    using System;
 
     public partial class Startup
     {
@@ -54,22 +56,25 @@
             //    clientId: "",
             //    clientSecret: "");
 
-            //app.UseTwitterAuthentication(options => {
-            //    options.ConsumerKey = "";
-            //    options.ConsumerSecret = "";
-            //});
-
             // Add cookie-based authentication to the request pipeline
             /*app.UseCookieAuthentication(options => {
-                options.LoginPath = new PathString("/Account/Login");
+                options.LoginPath = new PathString("/~/signin");
+            });*/
+
+            app.UseCookieAuthentication(options => {
+                options.AutomaticAuthentication = true;
+                options.AuthenticationScheme = "ServerCookie";
+                options.CookieName = CookieAuthenticationDefaults.CookiePrefix + "ServerCookie";
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
+                options.LoginPath = new PathString("/signin");
             });
 
             app.UseTwitterAuthentication(options => {
                 options.ConsumerKey = "TcZ4H3Rg92YKwlTKDsestfO8S";
                 options.ConsumerSecret = "ldALPeUtFfT5W6nFuD9Y6CY4vIRgdeLdzW9k9Z88bZuaUXesrv";
-                options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                options.SignInScheme = "ServerCookie";
             });
-            */
+            
             //app.UseFacebookAuthentication(
             //    appId: "",
             //    appSecret: "");

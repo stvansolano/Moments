@@ -30,6 +30,7 @@
 
             // Add MVC to the request pipeline.
             app.UseMvc();
+
             // Add the following route for porting Web API 2 controllers.
             // routes.MapWebApiRoute("DefaultApi", "api/{controller}/{id?}");
 

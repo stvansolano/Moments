@@ -40,6 +40,25 @@
           "lib/dnx451/Microsoft.AspNet.Authentication.dll": {}
         }
       },
+      "Microsoft.AspNet.Authentication.Cookies/1.0.0-beta5": {
+        "dependencies": {
+          "Microsoft.AspNet.Authentication": "1.0.0-beta5",
+          "Microsoft.Framework.WebEncoders": "1.0.0-beta5",
+          "Newtonsoft.Json": "6.0.6"
+        },
+        "frameworkAssemblies": [
+          "mscorlib",
+          "System",
+          "System.Core",
+          "Microsoft.CSharp"
+        ],
+        "compile": {
+          "lib/dnx451/Microsoft.AspNet.Authentication.Cookies.dll": {}
+        },
+        "runtime": {
+          "lib/dnx451/Microsoft.AspNet.Authentication.Cookies.dll": {}
+        }
+      },
       "Microsoft.AspNet.Authentication.Twitter/1.0.0-beta5": {
         "dependencies": {
           "Microsoft.AspNet.Authentication": "1.0.0-beta5"
@@ -1418,6 +1437,19 @@
         },
         "runtime": {
           "lib/dnxcore50/Microsoft.AspNet.Authentication.dll": {}
+        }
+      },
+      "Microsoft.AspNet.Authentication.Cookies/1.0.0-beta5": {
+        "dependencies": {
+          "Microsoft.AspNet.Authentication": "1.0.0-beta5",
+          "Microsoft.Framework.WebEncoders": "1.0.0-beta5",
+          "Newtonsoft.Json": "6.0.6"
+        },
+        "compile": {
+          "lib/dnxcore50/Microsoft.AspNet.Authentication.Cookies.dll": {}
+        },
+        "runtime": {
+          "lib/dnxcore50/Microsoft.AspNet.Authentication.Cookies.dll": {}
         }
       },
       "Microsoft.AspNet.Authentication.Twitter/1.0.0-beta5": {
@@ -3964,6 +3996,19 @@
         "lib/dnx451/Microsoft.AspNet.Authentication.xml",
         "lib/dnxcore50/Microsoft.AspNet.Authentication.dll",
         "lib/dnxcore50/Microsoft.AspNet.Authentication.xml"
+      ]
+    },
+    "Microsoft.AspNet.Authentication.Cookies/1.0.0-beta5": {
+      "serviceable": true,
+      "sha512": "slpGZOh7Gp8YFE9cdlzce67LFUAspBAp6WfjzhH270Ck/D8lzY83DiDLe2IQOhgH+MxlYi+r4bb7PvOhmoSM7g==",
+      "files": [
+        "Microsoft.AspNet.Authentication.Cookies.1.0.0-beta5.nupkg",
+        "Microsoft.AspNet.Authentication.Cookies.1.0.0-beta5.nupkg.sha512",
+        "Microsoft.AspNet.Authentication.Cookies.nuspec",
+        "lib/dnx451/Microsoft.AspNet.Authentication.Cookies.dll",
+        "lib/dnx451/Microsoft.AspNet.Authentication.Cookies.xml",
+        "lib/dnxcore50/Microsoft.AspNet.Authentication.Cookies.dll",
+        "lib/dnxcore50/Microsoft.AspNet.Authentication.Cookies.xml"
       ]
     },
     "Microsoft.AspNet.Authentication.Twitter/1.0.0-beta5": {
@@ -7126,7 +7171,8 @@
       "Microsoft.Framework.Configuration.Json >= 1.0.0-beta5",
       "System.Spatial >= 5.6.4",
       "Microsoft.Data.Edm >= 5.6.3",
-      "WindowsAzure.Storage >= 6.0.1-preview"
+      "WindowsAzure.Storage >= 6.0.1-preview",
+      "Microsoft.AspNet.Authentication.Cookies >= 1.0.0-beta5"
     ],
     "DNX,Version=v4.5.1": [],
     "DNXCore,Version=v5.0": []
