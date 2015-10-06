@@ -1,12 +1,58 @@
 namespace Backend
 {
-    using Microsoft.WindowsAzure.Storage.Table;
-
-    public class UserEntity : TableEntity
+    public class UserEntity : StorageEntity
     {
-        public string Id { get; set; }
-        public string Name { get; set; }
-        public string ProfileImage { get; set; }
-        public bool SendMoment { get; set; }
+        public UserEntity()
+        {
+            AllocateProperty("Name", string.Empty);
+            AllocateProperty("ProfileImage", string.Empty);
+            AllocateProperty("SendMoment", false);
+
+            Map = (storage, entity) => {
+                var user = (UserEntity)entity;
+
+                user.Name = FromStoredPropertyString(storage, "Name");
+                user.ProfileImage = FromStoredPropertyString(storage, "ProfileImage");
+                user.SendMoment = FromStoredPropertyBoolean(storage, "SendMoment").GetValueOrDefault(false);
+            };
+        }
+
+        public string Id
+        {
+            get { return Tuple.RowKey; }
+        }
+
+        private string _name;
+        public string Name
+        {
+            get { return _name; }
+            set
+            {
+                _name = value;
+                SetValue("Name", value);
+            }
+        }
+
+        private string _profileImage;
+        public string ProfileImage
+        {
+            get { return _profileImage; }
+            set
+            {
+                _profileImage = value;
+                SetValue("ProfileImage", value);
+            }
+        }
+
+        private bool _sendMoment;
+        public bool SendMoment
+        {
+            get { return _sendMoment; }
+            set
+            {
+                _sendMoment = value;
+                SetValue("SendMoment", value);
+            }
+        }
     }
 }
