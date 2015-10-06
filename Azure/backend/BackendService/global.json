@@ -1,7 +1,14 @@
 ﻿{
   "sdk": {
-    "version": "1.0.0-beta5",
-    "architecture": "x64",
-    "runtime": "dnx-clr"
+    "dnx451": {
+      "version": "1.0.0-beta5",
+      "architecture": "x64",
+      "runtime": "dnx-clr"
+    },
+    "dnxcore50": {
+      "version": "1.0.0-beta5",
+      "architecture": "x64",
+      "runtime": "dnx-clr"
+    }
   }
 }
