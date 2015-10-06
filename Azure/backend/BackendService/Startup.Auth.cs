@@ -1,7 +1,7 @@
 ﻿namespace Backend
 {
     using Microsoft.AspNet.Authentication;
-    using Microsoft.AspNet.Authentication.Cookies;
+    //using Microsoft.AspNet.Authentication.Cookies;
     //using Microsoft.AspNet.Authentication.Cookies;
     using Microsoft.AspNet.Authentication.Twitter;
     using Microsoft.AspNet.Builder;
@@ -60,7 +60,7 @@
             /*app.UseCookieAuthentication(options => {
                 options.LoginPath = new PathString("/~/signin");
             });*/
-
+            /*
             app.UseCookieAuthentication(options => {
                 options.AutomaticAuthentication = true;
                 options.AuthenticationScheme = "ServerCookie";
@@ -68,7 +68,7 @@
                 options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
                 options.LoginPath = new PathString("/signin");
             });
-
+            */
             app.UseTwitterAuthentication(options => {
                 options.ConsumerKey = "TcZ4H3Rg92YKwlTKDsestfO8S";
                 options.ConsumerSecret = "ldALPeUtFfT5W6nFuD9Y6CY4vIRgdeLdzW9k9Z88bZuaUXesrv";
