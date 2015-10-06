@@ -28,9 +28,8 @@ namespace Backend.Controllers
             ViewBag.ReturnUrl = returnUrl;
 
             // Note: in a real world application, you'd probably prefer creating a specific view model.
-            ActionContext.HttpContext.GetExternalProviders();
 
-            return View("SignIn");
+            return View("SignIn", ActionContext.HttpContext.GetExternalProviders());
         }
 
         [HttpPost("~/signin")]
