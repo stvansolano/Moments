@@ -9,6 +9,7 @@
         "Microsoft.AspNet.Server.WebListener": "1.0.0-beta5",
         "Microsoft.AspNet.StaticFiles": "1.0.0-beta5",
         "Microsoft.AspNet.Authentication.Twitter": "1.0.0-beta5",
+
         "Microsoft.AspNet.WebApi.HelpPage": "5.2.3",
 
         "Newtonsoft.Json": "7.0.1",

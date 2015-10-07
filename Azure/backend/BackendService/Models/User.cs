@@ -16,4 +16,3 @@ namespace Backend
 		public bool SendMoment { get; set; }
 	}
 }
-

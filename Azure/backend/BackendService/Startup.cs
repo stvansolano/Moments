@@ -50,7 +50,7 @@
                 await context.Response.WriteAsync("</body></html>");
             });*/
 
-            ConfigureAuth(app);
+            //ConfigureAuth(app);
         }
     }
 }

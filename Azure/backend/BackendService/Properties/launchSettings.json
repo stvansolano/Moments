@@ -4,8 +4,7 @@
       "commandName": "IISExpress",
       "launchBrowser": true,
       "environmentVariables": {
-        "ASPNET_ENV": "Development",
-        "KRE_FEED ": "https://www.myget.org/F/aspnetlastkre/api/v2"
+        "ASPNET_ENV": "Development"
       }
     }
   }
