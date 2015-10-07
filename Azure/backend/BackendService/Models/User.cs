@@ -4,7 +4,7 @@ namespace Backend
 {
 	public class User
 	{
-		public string Id { get; set; }
+        public string Id { get; set; }
 
 		[JsonProperty ("name")]
 		public string Name { get; set; }
@@ -14,5 +14,10 @@ namespace Backend
 
 		[JsonIgnore]
 		public bool SendMoment { get; set; }
-	}
+
+        // TODO: Fill those properties through the application
+        public string UserName { get; set; }
+        public string Email { get; set; }
+
+    }
 }

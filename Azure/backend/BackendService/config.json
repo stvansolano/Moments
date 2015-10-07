@@ -1,5 +1,12 @@
 {
-    "MicrosoftAzureStorage": {
-        "momentsmedia_AzureStorageConnectionString": "DefaultEndpointsProtocol=https;AccountName=momentsmedia;AccountKey=mlEnCMJk46fyWtIN8NK3nuh3UDrEvZ+6nYuO/lw1cdKzOhlVoxG4a51utKiOv3kPxUG7/K5z3v5wITzmWk5WlA=="
+  "MicrosoftAzureStorage": {
+    "momentsmedia_AzureStorageConnectionString": "DefaultEndpointsProtocol=https;AccountName=momentsmedia;AccountKey=mlEnCMJk46fyWtIN8NK3nuh3UDrEvZ+6nYuO/lw1cdKzOhlVoxG4a51utKiOv3kPxUG7/K5z3v5wITzmWk5WlA=="
+  },
+
+  "Authentication": {
+    "TwitterAccount": {
+      "ConsumerKey": "TcZ4H3Rg92YKwlTKDsestfO8S",
+      "ConsumerSecret": "ldALPeUtFfT5W6nFuD9Y6CY4vIRgdeLdzW9k9Z88bZuaUXesrv"
     }
+  }
 }

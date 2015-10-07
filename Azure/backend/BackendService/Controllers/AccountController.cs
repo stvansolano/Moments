@@ -2,112 +2,169 @@
 
 namespace Backend.Controllers
 {
-    using Microsoft.AspNet.Http;
     using Microsoft.AspNet.Http.Authentication;
     using Microsoft.AspNet.Mvc;
     using Backend;
+    using Microsoft.AspNet.Authorization;
+    using Microsoft.AspNet.Identity;
     using System.Threading.Tasks;
+    using System.Security.Claims;
 
     //[RequireHttps]
+    [Authorize]
     [Route("/[controller]")]
     public class AccountController : Controller //IdentityController<IdentityUser, IdentityDbContext>
     {
         public AccountRepository Repository { get; set; }
+        private readonly UserManager<User> _userManager;
+        private readonly SignInManager<User> _signInManager;
 
-        public AccountController()
+        public AccountController(
+            UserManager<User> userManager,
+            SignInManager<User> signInManager)
         {
+            _userManager = userManager;
+            _signInManager = signInManager;
+
             Repository = new AccountRepository();
         }
 
-        [HttpGet("~/signin")]
-        public ActionResult SignIn(string returnUrl = null)
+        //
+        // POST: /Account/Login
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = null)
         {
-            // Note: the "returnUrl" parameter corresponds to the endpoint the user agent
-            // will be redirected to after a successful authentication and not
-            // the redirect_uri of the requesting client application.
-            ViewBag.ReturnUrl = returnUrl;
+            //EnsureDatabaseCreated(_applicationDbContext);
+            ViewData["ReturnUrl"] = returnUrl;
+            if (ModelState.IsValid)
+            {
+                // This doesn't count login failures towards account lockout
+                // To enable password failures to trigger account lockout, set lockoutOnFailure: true
+                var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
+                if (result.Succeeded)
+                {
+                    return View(returnUrl);
+                }
+                if (result.IsLockedOut)
+                {
+                    return View("Lockout");
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    return View(model);
+                }
+            }
 
-            // Note: in a real world application, you'd probably prefer creating a specific view model.
-
-            return View("SignIn", ActionContext.HttpContext.GetExternalProviders());
+            // If we got this far, something failed, redisplay form
+            return View(model);
         }
 
-        [HttpPost("~/signin")]
-        public ActionResult SignIn(string provider, string returnUrl)
+        //
+        // POST: /Account/LogOff
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult LogOff()
         {
-            // Note: the "provider" parameter corresponds to the external
-            // authentication provider choosen by the user agent.
-            if (string.IsNullOrEmpty(provider))
-            {
-                return HttpBadRequest();
-            }
-
-            if (!ActionContext.HttpContext.IsProviderSupported(provider))
-            {
-                return HttpBadRequest();
-            }
-
-            // Note: the "returnUrl" parameter corresponds to the endpoint the user agent
-            // will be redirected to after a successful authentication and not
-            // the redirect_uri of the requesting client application.
-            if (string.IsNullOrEmpty(returnUrl))
-            {
-                return HttpBadRequest();
-            }
-
-            // Instruct the middleware corresponding to the requested external identity
-            // provider to redirect the user agent to its own authorization endpoint.
-            // Note: the authenticationScheme parameter must match the value configured in Startup.cs
-            return new ChallengeResult(provider, new AuthenticationProperties
-            {
-                RedirectUri = returnUrl
-            });
+            _signInManager.SignOut();
+            return RedirectToAction(nameof(HomeController.Index), "Home");
         }
 
-        [HttpGet("~/signout"), HttpPost("~/signout")]
-        public void SignOut()
+        //
+        // POST: /Account/ExternalLogin
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public IActionResult ExternalLogin(string provider, string returnUrl = null)
         {
-            // Instruct the cookies middleware to delete the local cookie created
-            // when the user agent is redirected from the external identity provider
-            // after a successful authentication flow (e.g Google or Facebook).
-
-            ActionContext.HttpContext.Authentication.SignOut("ServerCookie");
-        }
-    }
-}
-
-namespace Backend
-{
-    using Microsoft.AspNet.Http;
-    using Microsoft.AspNet.Http.Authentication;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-
-    public static class HttpContextExtensions
-    {
-        public static IEnumerable<AuthenticationDescription> GetExternalProviders(this HttpContext context)
-        {
-            if (context == null)
-            {
-                throw new ArgumentNullException(nameof(context));
-            }
-
-            return from description in context.Authentication.GetAuthenticationSchemes()
-                   where !string.IsNullOrEmpty(description.AuthenticationScheme)
-                   select description;
+            //EnsureDatabaseCreated(_applicationDbContext);
+            // Request a redirect to the external login provider.
+            var redirectUrl = Url.Action("ExternalLoginCallback", "Account", new { ReturnUrl = returnUrl });
+            var properties = _signInManager.ConfigureExternalAuthenticationProperties(provider, redirectUrl);
+            return new ChallengeResult(provider, properties);
         }
 
-        public static bool IsProviderSupported(this HttpContext context, string provider)
+
+        //
+        // GET: /Account/ExternalLoginCallback
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> ExternalLoginCallback(string returnUrl = null)
         {
-            if (context == null)
+            var info = await _signInManager.GetExternalLoginInfoAsync();
+            if (info == null)
             {
-                throw new ArgumentNullException(nameof(context));
+                return RedirectToAction(nameof(Login));
             }
 
-            return (from description in context.GetExternalProviders()
-                    where string.Equals(description.AuthenticationScheme, provider, StringComparison.OrdinalIgnoreCase)
-                    select description).Any();
+            // Sign in the user with this external login provider if the user already has a login.
+            var result = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false);
+            if (result.Succeeded)
+            {
+                return View(returnUrl);
+            }
+            if (result.IsLockedOut)
+            {
+                return View("Lockout");
+            }
+            else
+            {
+                // If the user does not have an account, then ask the user to create an account.
+                ViewData["ReturnUrl"] = returnUrl;
+                ViewData["LoginProvider"] = info.LoginProvider;
+                var email = info.ExternalPrincipal.FindFirstValue(ClaimTypes.Email);
+                return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email = email });
+            }
+        }
+
+        //
+        // POST: /Account/ExternalLoginConfirmation
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ExternalLoginConfirmation(ExternalLoginConfirmationViewModel model, string returnUrl = null)
+        {
+            if (User.IsSignedIn())
+            {
+                return View();
+                //return RedirectToAction(nameof(ManageController.Index), "Manage");
+            }
+
+            if (ModelState.IsValid)
+            {
+                // Get the information about the user from the external login provider
+                var info = await _signInManager.GetExternalLoginInfoAsync();
+                if (info == null)
+                {
+                    return View("ExternalLoginFailure");
+                }
+                var user = new User { UserName = model.Email, Email = model.Email };
+                var result = await _userManager.CreateAsync(user);
+                if (result.Succeeded)
+                {
+                    result = await _userManager.AddLoginAsync(user, info);
+                    if (result.Succeeded)
+                    {
+                        await _signInManager.SignInAsync(user, isPersistent: false);
+                        //return RedirectToLocal(returnUrl);
+                    }
+                }
+                AddErrors(result);
+            }
+
+            ViewData["ReturnUrl"] = returnUrl;
+            return View(model);
+        }
+
+
+        private void AddErrors(IdentityResult result)
+        {
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError(string.Empty, error.Description);
+            }
         }
     }
 }
