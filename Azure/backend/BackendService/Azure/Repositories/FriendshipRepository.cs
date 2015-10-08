@@ -5,9 +5,8 @@ namespace Backend
 {
     public class FriendshipRepository : RepositoryBase<FriendshipEntity>
     {
-        public FriendshipRepository() : base("Friendship")
+        public FriendshipRepository(CloudContext context) : base("Friendship", context)
         {
-
         }
 
         internal IEnumerable<FriendshipEntity> Where(Predicate<FriendshipEntity> predicate)

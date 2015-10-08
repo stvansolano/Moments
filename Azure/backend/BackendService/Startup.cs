@@ -55,7 +55,16 @@
 
             // Register application services.
 
-            
+            string connectionString;
+            Configuration.TryGet("MicrosoftAzureStorage:ConnectionString", out connectionString);
+            var context = new CloudContext(connectionString);
+
+            services.AddSingleton<CloudContext, CloudContext>().AddInstance(context);
+            services.AddSingleton<UserRepository, UserRepository>();
+            services.AddSingleton<AccountRepository, AccountRepository>();
+            services.AddSingleton<MomentRepository, MomentRepository>();
+
+
             services.AddTransient<IUserClaimsPrincipalFactory<User>, UserClaimsPrincipalFactory>();
             services.AddSingleton<IdentityErrorDescriber, IdentityErrorDescriber>();
             services.AddTransient<ILookupNormalizer, LookupNormalizer>();

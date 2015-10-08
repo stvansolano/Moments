@@ -12,14 +12,16 @@ namespace Backend.Controllers
     [Route("/[controller]")]
     public class MomentsController : Controller
     {
-        public MomentsController()
+        protected MomentRepository Repository { get; private set; }
+        protected CloudContext CloudContext { get; set; }
+
+        public MomentsController(CloudContext context, MomentRepository repository)
         {
-            Repository = new MomentRepository();
+            Repository = repository;
+            CloudContext = context;
         }
 
-        public MomentRepository Repository { get; private set; }
-
-        [HttpGet]
+        [HttpGet("{userId}")]
         public async Task<ActionResult> GetSentToMe(string userId)
         {
             if (string.IsNullOrEmpty(userId))

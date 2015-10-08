@@ -1,15 +1,13 @@
 ﻿namespace Backend
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
 
     public class MomentRepository : RepositoryBase<MomentEntity>
     {
-        public MomentRepository() : base("Moment")
+        public MomentRepository(CloudContext context) : base("Moment", context)
         {
-
         }
 
         public new async Task<IEnumerable<Moment>> GetAll()

@@ -1,15 +1,13 @@
 ﻿namespace Backend
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
 
     public class UserRepository : RepositoryBase<UserEntity>
     {
-        public UserRepository() : base("User")
+        public UserRepository(CloudContext context) : base("User", context)
         {
-
         }
 
         internal void Add(User model)
@@ -45,6 +43,11 @@
         {
             return (from entity in await base.GetAll()
                     select FromEntity(entity)).ToArray();
+        }
+
+        public new async Task<User> Find(string partitionKey)
+        {
+            return FromEntity(await base.Find(partitionKey));
         }
     }
 }

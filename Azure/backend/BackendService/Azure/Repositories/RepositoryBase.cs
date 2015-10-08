@@ -12,14 +12,13 @@
     public abstract class RepositoryBase<Entity>
         where Entity : StorageEntity, new()
     {
-        private string _connectionString;
+        private CloudContext Context;
         private ConcurrentQueue<Tuple<ITableEntity, TableOperation>> _operations;
-        private CloudStorageAccount _storageAccount;
 
-        protected RepositoryBase(string partitionKey)
+        protected RepositoryBase(string partitionKey, CloudContext context)
         {
             PartitionKey = partitionKey;
-            _connectionString = "DefaultEndpointsProtocol=https;AccountName=momentsmedia;AccountKey=mlEnCMJk46fyWtIN8NK3nuh3UDrEvZ+6nYuO/lw1cdKzOhlVoxG4a51utKiOv3kPxUG7/K5z3v5wITzmWk5WlA==";
+            Context = context;
 
             _operations = new ConcurrentQueue<Tuple<ITableEntity, TableOperation>>();
         }
@@ -78,7 +77,7 @@
         {
             var token = new TableContinuationToken();
 
-            var table = await MakeTableReference().ConfigureAwait(false);
+            var table = await Context.Table(PartitionKey).ConfigureAwait(false);
             var segment = await table.ExecuteQuerySegmentedAsync(query, token).ConfigureAwait(false);
 
             var results = (from fetch in segment.ToArray()
@@ -95,13 +94,16 @@
         public async Task<Entity> Find(string rowKey)
         {
             var retrieveOperation = TableOperation.Retrieve(PartitionKey, rowKey);
-            var table = await MakeTableReference().ConfigureAwait(false);
+            var table = await Context.Table(PartitionKey).ConfigureAwait(false);
 
             var retrievedResult = await table.ExecuteAsync(retrieveOperation).ConfigureAwait(false);
             var fetch = retrievedResult.Result as DynamicTableEntity;
             var entity = new Entity();
 
-            entity.LoadFrom(fetch);
+            if (fetch != null)
+            {
+                entity.LoadFrom(fetch);
+            }
 
             return entity;
         }
@@ -145,23 +147,9 @@
         {
             var tableRequestOptions = MakeTableRequestOptions();
 
-            var tableReference = await MakeTableReference().ConfigureAwait(false);
+            var tableReference = await Context.Table(PartitionKey).ConfigureAwait(false);
 
             await tableReference.ExecuteBatchAsync(tableBatchOperation).ConfigureAwait(false);
-        }
-
-        private async Task<CloudTable> MakeTableReference()
-        {
-            if (_storageAccount == null)
-            {
-                _storageAccount = CloudStorageAccount.Parse(_connectionString);
-            }
-            var tableClient = _storageAccount.CreateCloudTableClient();
-            var tableReference = tableClient.GetTableReference(PartitionKey);
-
-            await tableReference.CreateIfNotExistsAsync().ConfigureAwait(false);
-
-            return tableReference;
         }
 
         private static TableRequestOptions MakeTableRequestOptions()

@@ -1,13 +1,12 @@
 ﻿namespace Backend
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
 
     public class AccountRepository : RepositoryBase<AccountEntity>
     {
-        public AccountRepository() : base("Account")
+        public AccountRepository(CloudContext context) : base("Account", context)
         {
         }
 

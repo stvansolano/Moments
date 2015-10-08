@@ -15,18 +15,19 @@ namespace Backend.Controllers
     [Route("/[controller]")]
     public class AccountController : Controller //IdentityController<IdentityUser, IdentityDbContext>
     {
-        public AccountRepository Repository { get; set; }
+        protected AccountRepository Repository { get; private set; }
+        protected CloudContext CloudContext { get; set; }
+
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
 
-        public AccountController(
-            UserManager<User> userManager,
-            SignInManager<User> signInManager)
+        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, CloudContext context, AccountRepository repository)
         {
             _userManager = userManager;
             _signInManager = signInManager;
 
-            Repository = new AccountRepository();
+            Repository = repository;
+            CloudContext = context;
         }
 
         //

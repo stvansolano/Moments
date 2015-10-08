@@ -12,23 +12,30 @@ namespace Backend.Controllers
     [Route("/[controller]")]
     public class UsersController : Controller
     {
-        public UsersController()
-        {
-            Repository = new UserRepository();
-        }
+        protected UserRepository Repository { get; private set; }
+        protected CloudContext CloudContext { get; set; }
 
-        public UserRepository Repository { get; private set; }
+        public UsersController(CloudContext context, UserRepository repository)
+        {
+            Repository = repository;
+            CloudContext = context;
+        }
 
         [HttpGet]
-        public async Task<IEnumerable<User>> Get()
+        public async Task<IEnumerable<User>> Get(string userId)
         {
-            var result = await Repository.GetAll();
-            if (result.Any() == false)
+            if (string.IsNullOrEmpty(userId))
             {
-                return new User[] { new User { Id = "-1", Name = "No users yet", SendMoment = false} };
+                var result = await Repository.GetAll();
+                if (result.Any() == false)
+                {
+                    return new User[] { new User { Id = "-1", Name = "No users yet", SendMoment = false } };
+                }
+                return result;
             }
-            return result;
+            return new User[] { await Repository.Find(userId) };
         }
+
 
         //[ValidateAntiForgeryToken]
         [HttpPost]

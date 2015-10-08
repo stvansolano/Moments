@@ -8,11 +8,13 @@ namespace Backend.Controllers
     [Route("/[controller]")]
     public partial class FriendsController : Controller
     {
-        public FriendshipRepository Repository { get; private set; }
+        protected FriendshipRepository Repository { get; private set; }
+        protected CloudContext CloudContext { get; set; }
 
-        public FriendsController()
+        public FriendsController(CloudContext context, FriendshipRepository repository)
         {
-            Repository = new FriendshipRepository();
+            Repository = repository;
+            CloudContext = context;
         }
         
         // POST api/values
