@@ -37,6 +37,7 @@ namespace Backend.Controllers
             return Json(result);
         }
 
+        [HttpPost]
         public HttpStatusCodeResult Post([FromBody]MomentBody body)
         {
             var recipients = body.Recipients;
