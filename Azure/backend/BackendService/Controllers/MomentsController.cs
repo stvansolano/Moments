@@ -76,6 +76,12 @@ namespace Backend.Controllers
             return new HttpStatusCodeResult((int)HttpStatusCode.Created);
         }
 
+        [HttpGet("Share")]
+        public ActionResult Share()
+        {
+            return View();
+        }
+
         private string StoreImageBlob(string attached)
         {
             return string.Empty;
