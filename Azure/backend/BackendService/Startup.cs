@@ -59,11 +59,15 @@
             Configuration.TryGet("MicrosoftAzureStorage:ConnectionString", out connectionString);
             var context = new CloudContext(connectionString);
 
+            string blobContainer;
+            Configuration.TryGet("MicrosoftAzureStorage:BlobContainer", out blobContainer);
+            var blobStorage = new MediaStorageRepository(blobContainer, context);
+
             services.AddSingleton<CloudContext, CloudContext>().AddInstance(context);
+            services.AddSingleton<MediaStorageRepository, MediaStorageRepository>().AddInstance(blobStorage);
             services.AddSingleton<UserRepository, UserRepository>();
             services.AddSingleton<AccountRepository, AccountRepository>();
             services.AddSingleton<MomentRepository, MomentRepository>();
-
 
             services.AddTransient<IUserClaimsPrincipalFactory<User>, UserClaimsPrincipalFactory>();
             services.AddSingleton<IdentityErrorDescriber, IdentityErrorDescriber>();

@@ -51,7 +51,7 @@
 
         private bool IsValid(string item)
         {
-            return string.IsNullOrEmpty(item) == false || string.IsNullOrEmpty(item.Trim()) == false;
+            return string.IsNullOrEmpty(item) == false && string.IsNullOrEmpty(item.Trim()) == false;
         }
     }
 }
